@@ -1,0 +1,5 @@
+- clean data
+    empty values - None policy
+    dtype check
+
+- requirement.txt file -  text file that lists all the dependencies and their specific versions required for a Python project
