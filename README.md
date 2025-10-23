@@ -1,7 +1,7 @@
 # E-handel analys
 
 ## Introduction
-Projektet analyserar en fiktiv e-handelsplattform och ger en snabbt beslutsunderlag inför nästa kampanjperiod.
+Projektet analyserar en fiktiv e-handelsplattform och ger en snabb beslutsunderlag inför nästa kampanjperiod.
 
 I report.ipynb svarar vi på frågor:
 1. Vad säljer? – vilka kategorier driver mest intäkt?
@@ -12,12 +12,12 @@ I report.ipynb svarar vi på frågor:
 6. Topp-listor – topp-3 kategorier efter intäkt.
 
 ## Team
-Abdullahi Sheek Elmi
-Irene Grisenti
-Isabel Caroline Holm
-Linnéa Zulmira Moreira Emanuelsson
-Mårten Jakob Ali Ohlsén Salahshour
-Ömer Berk Kilicasan
+- Abdullahi Sheek Elmi
+- Irene Grisenti
+- Isabel Caroline Holm
+- Linnéa Zulmira Moreira Emanuelsson
+- Mårten Jakob Ali Ohlsén Salahshour
+- Ömer Berk Kilicasan
 
 ## Vad vi har gjort / ansvar
 
