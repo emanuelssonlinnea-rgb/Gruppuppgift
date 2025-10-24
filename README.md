@@ -20,7 +20,11 @@ I report.ipynb svarar vi på frågor:
 - Ömer Berk Kilicasan
 
 ## Vad vi har gjort / ansvar
-Öppnat github
+Öppnat github repository
+Skapat brancher
+Börjat koda
+
+
 
 ## Hur man kör projektet
 
