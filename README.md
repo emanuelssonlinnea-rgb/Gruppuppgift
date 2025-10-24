@@ -20,10 +20,11 @@ I report.ipynb svarar vi på frågor:
 - Ömer Berk Kilicasan
 
 ## Vad vi har gjort / ansvar
-
+Öppnat github
 
 ## Hur man kör projektet
 
 
 ## Python version
 Python 3.12.3
+
