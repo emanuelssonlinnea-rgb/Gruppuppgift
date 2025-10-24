@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("Gruppuppgift/data/ecommerce_sales.csv")
+df = pd.read_csv("../Gruppuppgift/data/ecommerce_sales.csv")
 
 # Quick check
 # print(df.head())
@@ -43,4 +43,4 @@ df_clean["date"] = pd.to_datetime(df_clean["date"])
 df_clean = df_clean.sort_values(by="date")
 
 # Saving the cleaned data in a new .csv
-df_clean.to_csv("/home/irene/Desktop/Gruppprojekt/Gruppuppgift/data/clean_data.csv", index = False)
+df_clean.to_csv("../Gruppuppgift/data/clean_data.csv", index = False)
