@@ -9,29 +9,23 @@
 
 import pandas as pd
 
-# Read the data
-df = pd.read_csv("../data/clean_data.csv")
+#-----------BERÄKNINGAR AOV--------------
+def calculate_aov(path="data/clean_data.csv"):
+    df = pd.read_csv(path)
 
-# Calculating total AOV for the period
-total_aov = df["revenue"].sum() / df["order_id"].count()
-total_aov_rounded = round(total_aov)
+# Konverting order date to a datetime type
+    df["date"] = pd.to_datetime(df["date"])
 
-# Checking order date is actually a datetime type
-df["date"] = pd.to_datetime(df["date"])
+# Adding column for month
+    df["month"] = df["date"].dt.to_period("M").astype(str)
 
-# Extracting month to get AOV per month
-df["month"] = df["date"].dt.to_period("M")
-
-# Group by month and calculate AOV, round to whole number
-monthly_aov = (df.groupby("month")
-               .apply(lambda x: x["revenue"].sum() / x["order_id"].count())
-                      .reset_index(name="AOV")
+# Calculating total and monthly AOV
+    total_aov = df["revenue"].sum() / df["order_id"].nunique()
+    monthly_aov = (df.groupby("month")
+                   .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
+                   .reset_index(name="AOV")
                       )
-
-monthly_aov_rounded = round(monthly_aov)
-
-# Sorting by month
-monthly_aov_rounded = monthly_aov_rounded.sort_values("month")
-
-print("Total AOV in the period:", total_aov_rounded)
-print(monthly_aov_rounded)
+# Round & sort
+    monthly_aov["AOV"] = monthly_aov["AOV"].round(0).astype(int)
+    monthly_aov = monthly_aov.sort_values("month")
+    return monthly_aov, round(total_aov)
