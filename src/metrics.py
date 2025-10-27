@@ -4,8 +4,6 @@
 import csv
 
 
-
-
 def revenue_per_category(reader): 
     dictionary_of_category_and_revenue = {}
     list_of_category_and_revenue = []
@@ -22,22 +20,22 @@ def revenue_per_category(reader):
     for category, revenue in dictionary_of_category_and_revenue.items():
         list_of_category_and_revenue.append((category, revenue))
     
-    return f"Den sorterade listan: {sorted(list_of_category_and_revenue, key=lambda item: item[1], reverse=True)}"
+    return sorted(list_of_category_and_revenue, key=lambda item: item[1], reverse=True)
     
+
+# Nedan testar om funktionen fungerar
+#with open("data/ecommerce_sales.csv", "r", encoding="utf-8") as files:
+#    reader = csv.reader(files)
+#    dictionary_of_test = revenue_per_category(reader)
+#    print(dictionary_of_test)
+
+def top_3_categories(reader):
+    top_list_of_categories = revenue_per_category(reader)
+    return top_list_of_categories[0:3]
 
 with open("data/ecommerce_sales.csv", "r", encoding="utf-8") as files:
     reader = csv.reader(files)
-    dictionary_of_test = revenue_per_category(reader)
+    dictionary_of_test = top_3_categories(reader)
     print(dictionary_of_test)
-
-
-# Nedan följer exempel på vad ovanstående funktion hanterar:
-# _________________________________________________________
-# with open("data/ecommerce_sales.csv") as files:
-    #reading = csv.reader(files)
-
-    #print(revenue_per_category(reading))
-    
-
 
 
