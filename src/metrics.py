@@ -36,7 +36,7 @@ def revenue_per_category(reader):
 import pandas as pd
 
 #-----------BERÄKNINGAR AOV--------------
-def calculate_aov(path="Gruppuppgift/data/clean_data.csv"):
+def calculate_aov(path="data/clean_data.csv"):
     df = pd.read_csv(path)
 
 # Konverting order date to a datetime type
@@ -58,7 +58,10 @@ def calculate_aov(path="Gruppuppgift/data/clean_data.csv"):
 
 
 # Intäkt per stad
-df = pd.read_csv("Gruppuppgift/data/clean_data.csv")
+def revenue_per_city(path="data/clean_data.csv"):
+    df = pd.read_csv(path)
 
-revenue_per_city = df.groupby("city")["revenue"].sum().sort_values(ascending=False)
-df_revenue_city = revenue_per_city.reset_index()
+    revenue_per_city = df.groupby("city")["revenue"].sum().sort_values(ascending=False)
+    df_revenue_city = revenue_per_city.reset_index()
+
+    return df_revenue_city
