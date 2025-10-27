@@ -21,7 +21,7 @@ def revenue_per_category(reader):
     for category, revenue in dictionary_of_category_and_revenue.items():
         list_of_category_and_revenue.append((category, revenue))
     
-    return f"Den sorterade listan: {sorted(list_of_category_and_revenue, key=lambda item: item[1], reverse=True)}"
+    return sorted(list_of_category_and_revenue, key=lambda item: item[1], reverse=True)
     
 
 # filen till nyckeltals-funktioner:
