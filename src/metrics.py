@@ -4,8 +4,6 @@
 import csv
 
 
-
-
 def revenue_per_category(reader): 
     dictionary_of_category_and_revenue = {}
     list_of_category_and_revenue = []
@@ -24,22 +22,6 @@ def revenue_per_category(reader):
     
     return f"Den sorterade listan: {sorted(list_of_category_and_revenue, key=lambda item: item[1], reverse=True)}"
     
-
-with open("data/ecommerce_sales.csv", "r", encoding="utf-8") as files:
-    reader = csv.reader(files)
-    dictionary_of_test = revenue_per_category(reader)
-    print(dictionary_of_test)
-
-
-# Nedan följer exempel på vad ovanstående funktion hanterar:
-# _________________________________________________________
-# with open("data/ecommerce_sales.csv") as files:
-    #reading = csv.reader(files)
-
-    #print(revenue_per_category(reading))
-    
-
-
 
 # filen till nyckeltals-funktioner:
 
