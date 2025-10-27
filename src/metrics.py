@@ -1,8 +1,9 @@
 # Intäkter per kategori
 
-# Kräver att man först öppnar en csv och därefter kör "variabel" = csvreader, och matar sedan in variabeln i denna funktion
+# Kräver att man först öppnar en csv och därefter kör "variabel" = csvreader, och matar sedan in variabeln i revenue_per_category(reader)
 import csv
-
+import numpy as np
+import matplotlib as plt
 
 def revenue_per_category(reader): 
     dictionary_of_category_and_revenue = {}
