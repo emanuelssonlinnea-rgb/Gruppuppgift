@@ -65,6 +65,14 @@ def calculate_aov_per_category(df):
     category_aov["AOV"] = category_aov["AOV"].round(0).astype(int)
     return category_aov
 
+# intäkt per stad
+
+# total intäkt
+
+# intäkt per kategori
+
+# intäkt över tid
+
 # Huvudfunktion som kör allt
 def calculate_aov(path="data/clean_data.csv"):
     df = load_and_prepare_data(path)
