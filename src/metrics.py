@@ -1,7 +1,7 @@
-# Intäkter per kategori
+# # Intäkter per kategori
 
-# Kräver att man först öppnar en csv och därefter kör "variabel" = csvreader, och matar sedan in variabeln i revenue_per_category(reader)
-import csv
+# # Kräver att man först öppnar en csv och därefter kör "variabel" = csvreader, och matar sedan in variabeln i revenue_per_category(reader)
+# import csv
 import numpy as np
 import matplotlib as plt
 
@@ -36,7 +36,7 @@ def revenue_per_category(reader):
 import pandas as pd
 
 #-----------BERÄKNINGAR AOV--------------
-def calculate_aov(path="Gruppuppgift/data/clean_data.csv"):
+def calculate_aov(path="data/clean_data.csv"):
     df = pd.read_csv(path)
 
 # Konverting order date to a datetime type
@@ -57,8 +57,15 @@ def calculate_aov(path="Gruppuppgift/data/clean_data.csv"):
     return monthly_aov, round(total_aov)
 
 
-# Intäkt per stad
-df = pd.read_csv("Gruppuppgift/data/clean_data.csv")
-
-revenue_per_city = df.groupby("city")["revenue"].sum().sort_values(ascending=False)
-df_revenue_city = revenue_per_city.reset_index()
+# Revenue per city
+def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Divides the rows by city and calculates the revenue per group.
+    Takes in a clean dataset containing "city" and "revenue" columns and returns a data frame with one row per city and its total revenue.
+    """
+    return (
+        df.groupby("city", dropna=False)
+        .agg(total_revenue=("revenue", "sum"))
+        .sort_values("total_revenue", ascending=False)
+        .reset_index()
+        )  

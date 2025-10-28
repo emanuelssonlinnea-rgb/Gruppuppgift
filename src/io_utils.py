@@ -1,46 +1,72 @@
 import pandas as pd
 
-df = pd.read_csv("../Gruppuppgift/data/ecommerce_sales.csv")
+REQUIRED = [
+    "order_id","date","city","category","price","units","revenue"
+]
 
-# Quick check
-# print(df.head())
-# print(df.shape)
-# print(df.dtypes)
-# print(df.info())
-# print(df.describe())
+def load_data(path: str) -> pd.DataFrame:
+    """
+    Loads the CSV file, checks that all the columns are present and returns a dataframe
+    """
+    df = pd.read_csv(path)
+    missing = [c for c in REQUIRED if c not in df.columns]
+    if missing:
+        raise ValueError(f"Missing column: {missing}")
+    return df
 
-# Creating a copy to work on
-df_clean = df.copy()
+def fill_unknown(s: pd.Series, missing_label: str = "Unknown") -> pd.Series:
+    """Replace missing values in a categorical column with a label"""
+    return s.astype("object").fillna(missing_label)
 
-# Removing white space from columns and normalizing them
-df_clean.columns = (df_clean.columns
-                    .str.strip()
-                    .str.replace(" ", "_")
-                    .str.lower())
+def coerce_numeric(s: pd.Series) -> pd.Series:
+    """Convert a Series to numeric, coercing errors and filling NaNs with 0"""
+    return pd.to_numeric(s, errors="coerce").fillna(0)
 
-# None policy
-print(df_clean.isna().sum()) 
-# 0 none values, but if there were any, how would we manage them?
-# order_id  - ignore
-# date      - ignore
-# city      - ignore
-# category  - ignore
-# price     - fill with the median
-# units     - fill with the median
-# revenue   - fill with the median
+def clean_data(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Cleans and processes the e-commerce sales data.
+    
+    - Standardize column names
+    - Handles missing values
+    - Convert data types
+    - Add month and week to columns
+    """
+    df_clean = df.copy()
 
-# Checking for duplicates in the id column
-df_clean["order_id"].duplicated().sum()
-# There are none but just in case:
-df_clean["order_id"].drop_duplicates().reset_index(drop=True)
+    # Removing white space from columns and normalizing them
+    df_clean.columns = (df_clean.columns
+                        .str.strip()
+                        .str.replace(" ", "_")
+                        .str.lower()
+    )
 
-# Converting data type of some columns for efficency
-df_clean[["order_id", "city", "category"]] = df_clean[["order_id", "city", "category"]].astype("category")
-df_clean["date"] = pd.to_datetime(df_clean["date"])
-#print(df_clean.dtypes)
+    # Dropping duplicates
+    df = df.drop_duplicates().reset_index(drop=True)
 
-# Sorting chronologically (to see if there are any odd dates)
-df_clean = df_clean.sort_values(by="date")
+    # Converting data type
+    df["date"] = pd.to_datetime(df["date"], errors="coerce")
 
-# Saving the cleaned data in a new .csv
-df_clean.to_csv("../Gruppuppgift/data/clean_data.csv", index = False)
+    # Fill categorical NaNs
+    for col in ["order_id", "city", "category"]:
+        df[col] = fill_unknown(df[col])
+    
+    # Convert to categorical
+    for col in ["order_id", "city", "category"]:
+        df[col] = df[col].astype("category")
+
+    # Coerce numeric columns
+    for col in ["price", "units", "revenue"]:
+        df[col] = coerce_numeric(df[col])
+
+    # Add derived time columns
+    df["month"] = df["date"].dt.to_period("M").dt.to_timestamp()
+    df["week"] = df["date"].dt.to_period("W").dt.start_time
+
+    # Sort by date
+    df = df.sort_values(by="date")
+
+    return df
+
+def save_data(df: pd.DataFrame, path: str) -> None:
+    """Save cleaned data to CSV"""
+    df.to_csv(path, index=False)

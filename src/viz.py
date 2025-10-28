@@ -34,17 +34,31 @@ plt.show()
 #________________________________________
 
 # --- Intäkt per stad ---
-from metrics import df_revenue_city 
+from src.metrics import revenue_per_city
 
-# Scaling to thousands for readability purposes
-df_revenue_city["revenue_thousands"] = df_revenue_city["revenue"] / 1000
+def plot_tot_revenue_per_city(df):
+    """
+    Plots the total revenue per city in a bar chart
+    """
 
-# Bar chart to show revenue per city
-fig, ax = plt.subplots()
-ax.bar(df_revenue_city["city"], df_revenue_city["revenue_thousands"], color="LightGreen")
-ax.set_title("Total revenue per city")
-ax.set_xlabel ("City")
-ax.set_ylabel("Revenue (thousands)")
-ax.grid(True, axis="y")
-plt.tight_layout()
-plt.show()
+    # Calculate the metric
+    df_revenue_city = revenue_per_city(df)
+
+    # Scaling to thousands for readability purposes
+    df_revenue_city["revenue_thousands"] = df_revenue_city["total_revenue"] / 1000
+
+    fig, ax = plt.subplots(figsize=(8,5))
+    ax.bar(
+        df_revenue_city["city"], 
+        df_revenue_city["revenue_thousands"], 
+        color="LightGreen"
+    )
+    
+    ax.set_title("Total revenue per City")
+    ax.set_xlabel ("City")
+    ax.set_ylabel("Revenue (thousands)")
+    ax.grid(True, axis="y", alpha=0.5)
+
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.show()
