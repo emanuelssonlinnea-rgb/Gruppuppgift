@@ -17,7 +17,7 @@ fig, ax = plt.subplots(figsize=(10, 6))
 ax.bar(monthly_aov["month"], monthly_aov["AOV"], color="blue")
 ax.axhline(y=total_aov, color="orange", linestyle="--")
 
-# lägger till etiketter (AOV värdena) ovanför stolparna
+# lägger till etiketter (AOV värdena) på stolparna
 for i, v in enumerate(monthly_aov["AOV"]):
     ax.text(i, v - 100, f"{v}", ha="center", va="top", color= "white")
 
@@ -25,7 +25,7 @@ for i, v in enumerate(monthly_aov["AOV"]):
 ax.set_title("Genomsnittlig orderstorlek (AOV) per månad")
 ax.set_xlabel("Månad")
 ax.set_ylabel("AOV i kr")
-ax.set_ylim(400, 2000)
+ax.set_ylim(0, 2000)
 
 plt.xticks(rotation=45)
 plt.tight_layout()
