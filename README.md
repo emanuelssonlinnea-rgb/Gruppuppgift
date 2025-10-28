@@ -30,5 +30,5 @@ Börjat koda
 
 
 ## Python version
-Python 3.12.3
+Python 3.13.7
 
