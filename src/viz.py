@@ -6,18 +6,18 @@
 
 import matplotlib.pyplot as plt
 
-#------------PLOTTING AOV--------------
+#------------AOV--------------
 
 # hämtar datan från beräkningsfilen
-from metrics import calculate_aov 
-monthly_aov, total_aov = calculate_aov()
+from metrics import calculate_aov
+monthly_aov, total_aov, category_aov = calculate_aov()
 
-# Skapar ett stapeldiagram
+# AOV - ÖVER TID - STAPELDIAGRAM 
 fig, ax = plt.subplots(figsize=(10, 6))
-ax.bar(monthly_aov["month"], monthly_aov["AOV"], color="blue")
-ax.axhline(y=total_aov, color="orange", linestyle="--")
+ax.bar(monthly_aov["month"], monthly_aov["AOV"], color="orange")
+ax.axhline(y=total_aov, color="grey", linestyle="--", linewidth=1, label=" Genomsnittlig AOV i perioden")
 
-# lägger till etiketter (AOV värdena) på stolparna
+# lägger till etiketter (AOV värdena) på stolparna 
 for i, v in enumerate(monthly_aov["AOV"]):
     ax.text(i, v - 100, f"{v}", ha="center", va="top", color= "white")
 
@@ -26,11 +26,34 @@ ax.set_title("Genomsnittlig orderstorlek (AOV) per månad")
 ax.set_xlabel("Månad")
 ax.set_ylabel("AOV i kr")
 ax.set_ylim(0, 2000)
+ax.grid(True, axis="y")
+ax.legend()
 
 plt.xticks(rotation=45)
 plt.tight_layout()
 
 plt.show()
+
+# AOV - KATEGORI - STAPELDIAGRAM
+fig, ax = plt.subplots(figsize=(10, 6))
+plt.bar(category_aov["category"], category_aov["AOV"], color="seagreen")
+ax.axhline(y=total_aov, color="grey", linestyle="--", linewidth=1, label="Genomsnittlig AOV")
+
+for i, v in enumerate(category_aov["AOV"]):
+    ax.text(i, v - 100, f"{v}", ha="center", va="top", color= "white")
+
+ax.set_title("Genomsnittlig orderstorlek (AOV) per kategori")
+ax.set_xlabel("Kategori")
+ax.set_ylabel("AOV i kr")
+ax.set_ylim(0, 3000)
+ax.grid(True, axis="y")
+ax.legend()
+
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+plt.show()
+
 #________________________________________
 
 # --- Intäkt per stad ---
