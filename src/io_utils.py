@@ -16,6 +16,7 @@ def load_data(path: str) -> pd.DataFrame:
 
 def fill_unknown(s: pd.Series, missing_label: str = "Unknown") -> pd.Series:
     """Replace missing values in a categorical column with a label"""
+    pd.set_option('future.no_silent_downcasting', True)
     return s.astype("object").fillna(missing_label)
 
 def coerce_numeric(s: pd.Series) -> pd.Series:
