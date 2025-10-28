@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 #------------PLOTTING AOV--------------
 
 # hämtar datan från beräkningsfilen
-from metrics import calculate_aov 
+from src.metrics import calculate_aov 
 monthly_aov, total_aov = calculate_aov()
 
 # Skapar ett stapeldiagram
@@ -47,11 +47,12 @@ def plot_tot_revenue_per_city(df):
     # Scaling to thousands for readability purposes
     df_revenue_city["revenue_thousands"] = df_revenue_city["total_revenue"] / 1000
 
-    fig, ax = plt.subplots(figsize=(8,5))
+    fig, ax = plt.subplots(figsize=(6,5))
     ax.bar(
         df_revenue_city["city"], 
         df_revenue_city["revenue_thousands"], 
-        color="LightGreen"
+        color="LightGreen",
+        width=0.7
     )
     
     ax.set_title("Total revenue per City")
