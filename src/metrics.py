@@ -150,17 +150,32 @@ print(total_revenue)
 # Intäkt över tid
 
 
+# def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
+#     """
+#     When do we get the highest vs smallest revenue?
+#     """
+#     ts = (
+#         df.set_index("month")
+#         .sort_index()
+#         .resample(freq)["revenue"]
+#         .nunique()
+#         .reset_index()
+#        )
+#     return ts
+
+
 def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
     """
     When do we get the highest vs smallest revenue?
     """
     ts = (
-        df.set_index("date")
+        df.set_index("month")
         .sort_index()
         .resample(freq)["revenue"]
         .nunique()
         .reset_index()
        )
+    ts["month"] = ts["month"].dt.strftime("%Y-%m")   # Convert 'month' column to string format like '2024-01'
+    
     return ts
-
 
