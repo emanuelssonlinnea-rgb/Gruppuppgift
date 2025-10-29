@@ -100,6 +100,9 @@ def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
         .reset_index()
         )  
 
+# Top 3 cities
+def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
+    return revenue_per_city(df).head(3)
 
 
 
