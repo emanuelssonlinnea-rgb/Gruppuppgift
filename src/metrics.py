@@ -97,3 +97,6 @@ def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
         .sort_values("total_revenue", ascending=False)
         .reset_index()
         )  
+
+# När säljer vi? – finns tidsmönster/säsong i försäljningen?
+def revenue_per_season()
