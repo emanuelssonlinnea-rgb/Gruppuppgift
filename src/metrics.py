@@ -4,6 +4,7 @@
 import csv
 import numpy as np
 import matplotlib as plt
+import pandas as pd
 
 def revenue_per_category(reader): 
     dictionary_of_category_and_revenue = {}
@@ -33,7 +34,7 @@ def revenue_per_category(reader):
 # Intäkt per stad
 # Top-3 kategorier efter intäkt
 
-import pandas as pd
+
 
 #-----------BERÄKNINGAR AOV--------------
 def calculate_aov(path="Gruppuppgift/data/clean_data.csv"):
@@ -62,3 +63,55 @@ df = pd.read_csv("Gruppuppgift/data/clean_data.csv")
 
 revenue_per_city = df.groupby("city")["revenue"].sum().sort_values(ascending=False)
 df_revenue_city = revenue_per_city.reset_index()
+
+
+#-----------BERÄKNINGAR TOTAL INTÄKT--------------
+
+df = pd.read_csv("Gruppuppgift/data/clean_data.csv")
+
+# Total Intäkt
+
+
+
+# Intäkt per kategori
+
+def revenue_by_category(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Divides rows by category and counts the revenue in each group
+    """
+    return(
+        df.groupby("category", dropna=False)["revenue"]
+        .nunique()
+        .sort_values(ascending=False)
+        .reset_index(name="revenue")
+    )
+            #kategoriskt + numeriskt så får bli en groupby tabell + staplar och eller boxplot
+
+
+# Intäkt över tid
+
+
+def revenue_over_time(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    When do we get the highest vs smallest revenue?
+    """
+    ts = (
+        df.set_index["date"]
+        .sort_index()
+        .resample()
+        .nunique()
+        .reset_index()
+       )
+    return ts
+
+
+
+    #numerisk + numeriskt - mönster
+
+
+
+
+
+
+
+
