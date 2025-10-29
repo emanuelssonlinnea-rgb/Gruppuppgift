@@ -65,31 +65,46 @@ revenue_per_city = df.groupby("city")["revenue"].sum().sort_values(ascending=Fal
 df_revenue_city = revenue_per_city.reset_index()
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #-----------BERÄKNINGAR TOTAL INTÄKT--------------
-
 df = pd.read_csv("Gruppuppgift/data/clean_data.csv")
-
 # Total Intäkt
 
-
-
-# Intäkt per kategori
-
-def revenue_by_category(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Divides rows by category and counts the revenue in each group
-    """
-    return(
-        df.groupby("category", dropna=False)["revenue"]
-        .nunique()
-        .sort_values(ascending=False)
-        .reset_index(name="revenue")
-    )
-            #kategoriskt + numeriskt så får bli en groupby tabell + staplar och eller boxplot
-
+def total_revenue(df: pd.DataFrame) -> int:
+    return df["revenue_amount"].nunique()
 
 # Intäkt över tid
-
 
 def revenue_over_time(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -98,20 +113,11 @@ def revenue_over_time(df: pd.DataFrame) -> pd.DataFrame:
     ts = (
         df.set_index["date"]
         .sort_index()
-        .resample()
+        .resample(freq)["revenue_amount"]
         .nunique()
         .reset_index()
        )
     return ts
 
 
-
     #numerisk + numeriskt - mönster
-
-
-
-
-
-
-
-
