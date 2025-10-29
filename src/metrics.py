@@ -4,6 +4,7 @@
 # import csv
 import numpy as np
 import matplotlib as plt
+import pandas as pd
 
 def revenue_per_category(reader): 
     dictionary_of_category_and_revenue = {}
@@ -33,7 +34,7 @@ def revenue_per_category(reader):
 # Intäkt per stad
 # Top-3 kategorier efter intäkt
 
-import pandas as pd
+
 
 #-----------BERÄKNINGAR AOV--------------
 
@@ -97,3 +98,61 @@ def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
         .sort_values("total_revenue", ascending=False)
         .reset_index()
         )  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-----------BERÄKNINGAR TOTAL INTÄKT--------------
+df = pd.read_csv("Gruppuppgift/data/clean_data.csv")
+# Total Intäkt
+
+def total_revenue(df: pd.DataFrame) -> int:
+    return df["revenue_amount"].nunique()
+
+# Intäkt över tid
+
+def revenue_over_time(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    When do we get the highest vs smallest revenue?
+    """
+    ts = (
+        df.set_index["date"]
+        .sort_index()
+        .resample(freq)["revenue_amount"]
+        .nunique()
+        .reset_index()
+       )
+    return ts
+
+
+    #numerisk + numeriskt - mönster
