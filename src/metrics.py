@@ -1,7 +1,4 @@
-# # Intäkter per kategori
 
-# # Kräver att man först öppnar en csv och därefter kör "variabel" = csvreader, och matar sedan in variabeln i revenue_per_category(reader)
-# import csv
 import pandas as pd
 
 # filen till nyckeltals-funktioner:
@@ -104,18 +101,4 @@ def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
         .resample(freq)["revenue"]
         .nunique()
         .reset_index()
-       )
-    ts["month"] = ts["month"].dt.strftime("%Y-%m")   # Convert 'month' column to string format like '2024-01'
-    
-    return ts
-
-
-    #numerisk + numeriskt - mönster
-=======
-# När säljer vi? – finns tidsmönster/säsong i försäljningen?
-def revenue_per_season()
->>>>>>> 3e3ee11 (Försöker fetcha)
-=======
-# När säljer vi? – finns tidsmönster/säsong i försäljningen?
-def revenue_per_season()
->>>>>>> 3e3ee11 (Försöker fetcha)
+        )  
