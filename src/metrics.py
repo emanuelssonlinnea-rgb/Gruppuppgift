@@ -105,38 +105,7 @@ def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
     return revenue_per_city(df).head(3)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#-----------BERÄKNINGAR TOTAL INTÄKT--------------
+#-----------BERÄKNINGAR TOTAL INTÄKT & INTÄKT ÖVER TID (MÅNAD)--------------
 
 import pandas as pd
 
@@ -149,23 +118,21 @@ def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
     return int(df["revenue"].sum())
 print(total_revenue) 
 
-
-
-# Intäkt över tid
-
+# Intäkt över tid (månad)
 
 def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
     """
     When do we get the highest vs smallest revenue?
     """
     ts = (
-        df.set_index("date")
+        df.set_index("month")
         .sort_index()
         .resample(freq)["revenue"]
         .nunique()
         .reset_index()
        )
+    ts["month"] = ts["month"].dt.strftime("%Y-%m")   # Convert 'month' column to string format like '2024-01'
+    
     return ts
-
 
     #numerisk + numeriskt - mönster
