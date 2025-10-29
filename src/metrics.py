@@ -89,6 +89,7 @@ def calculate_aov(path="data/clean_data.csv"):
 # Revenue per city
 def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
     """
+    Where do we sell?
     Divides the rows by city and calculates the revenue per group.
     Takes in a clean dataset containing "city" and "revenue" columns and returns a data frame with one row per city and its total revenue.
     """
@@ -99,6 +100,9 @@ def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
         .reset_index()
         )  
 
+# Top 3 cities
+def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
+    return revenue_per_city(df).head(3)
 
 
 
@@ -164,3 +168,4 @@ def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
     return ts
 
 
+    #numerisk + numeriskt - mönster
