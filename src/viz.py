@@ -1,18 +1,13 @@
-# filen till plot-funktioner
-
-# från uppgiften i omniway:
-# Exempel: intäkt per kategori (stapeldiagram), försäljning över tid (linje/vecka eller månad).
-# Tydliga rubriker, axlar och 1–2 meningar markdown som förklarar vad figuren visar.
-
 import matplotlib.pyplot as plt
 import pandas as pd
+from src import *
 
 #------------AOV I EN FIGUR--------------
 
 # hämtar datan från beräkningsfilen
-from src.metrics import calculate_aov 
+# from src.metrics import calculate_aov 
 # monthly_aov, total_aov = calculate_aov()
-from metrics import *
+# from metrics import *
 
 def plot_aov_figure(df: pd.DataFrame):
     monthly_aov, total_aov, category_aov, city_aov = calculate_aov(df)
@@ -88,8 +83,8 @@ def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
 # --- Total Intäkt & Intäkt över tid (månad) ---
 # hämtar datan från beräkningsfilen
 
-from src.metrics import revenue_over_time, total_revenue 
-calculate_revenue = revenue_over_time, total_revenue
+
+# calculate_revenue = metrics.revenue_over_time, metrics.total_revenue
 
 
 
@@ -105,6 +100,7 @@ def revenue_monthly_bar(ax, x, y, title, xlabel, ylabel, grid: bool = True):
     plt.tight_layout()
     plt.show()
     return ax
+
 
 
     

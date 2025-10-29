@@ -4,25 +4,6 @@
 # import csv
 import pandas as pd
 
-def revenue_per_category(reader): 
-    dictionary_of_category_and_revenue = {}
-    list_of_category_and_revenue = []
-    next(reader)
-
-    for row in reader:
-        if row[3] not in dictionary_of_category_and_revenue:
-            dictionary_of_category_and_revenue[row[3]] = float(row[6])
-        elif row[3] in dictionary_of_category_and_revenue:
-            dictionary_of_category_and_revenue[row[3]] += float(row[6])
-        else:
-            print("Error - cannot read your input variabel correctly. Please check if it is a dictionary! Only dictionaries here plz <3")
-
-    for category, revenue in dictionary_of_category_and_revenue.items():
-        list_of_category_and_revenue.append((category, revenue))
-    
-    return sorted(list_of_category_and_revenue, key=lambda item: item[1], reverse=True)
-    
-
 # filen till nyckeltals-funktioner:
 
 # Total intäkt 
@@ -101,8 +82,6 @@ def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
 
 #-----------BERÄKNINGAR TOTAL INTÄKT & INTÄKT ÖVER TID (MÅNAD)--------------
 
-import pandas as pd
-
 #df = pd.read_csv(r"c:\Users\Mauro\Desktop\Gruppuppgift -Linnéa branch\Gruppuppgift\data\clean_data.csv")
 
 
@@ -129,5 +108,16 @@ def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
     ts["month"] = ts["month"].dt.strftime("%Y-%m")   # Convert 'month' column to string format like '2024-01'
     
     return ts
+
+# Intäkt per kategori
+
+def revenue_per_category(df: pd.DataFrame) -> pd.DataFrame:
+    return df.groupby(["category"])["revenue"].sum().sort_values(ascending=False)
+
+# Top 3 intäkter per kategori
+
+def top_3_category(df: pd.DataFrame) -> pd.DataFrame:
+    top_3 = revenue_per_category(df).head(3)
+    return top_3
 
  
