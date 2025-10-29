@@ -109,15 +109,13 @@ def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
     
     return ts
 
-# Intäkt per kategori
 
-def revenue_per_category(df: pd.DataFrame) -> pd.DataFrame:
-    return df.groupby(["category"])["revenue"].sum().sort_values(ascending=False)
-
-# Top 3 intäkter per kategori
-
-def top_3_category(df: pd.DataFrame) -> pd.DataFrame:
-    top_3 = revenue_per_category(df).head(3)
-    return top_3
-
- 
+    #numerisk + numeriskt - mönster
+=======
+# När säljer vi? – finns tidsmönster/säsong i försäljningen?
+def revenue_per_season()
+>>>>>>> 3e3ee11 (Försöker fetcha)
+=======
+# När säljer vi? – finns tidsmönster/säsong i försäljningen?
+def revenue_per_season()
+>>>>>>> 3e3ee11 (Försöker fetcha)
