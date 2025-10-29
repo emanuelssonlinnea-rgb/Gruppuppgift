@@ -100,6 +100,7 @@ def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
         )  
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
@@ -157,6 +158,10 @@ def revenue_over_time(df: pd.DataFrame) -> pd.DataFrame:
 
 
     #numerisk + numeriskt - mönster
+=======
+# När säljer vi? – finns tidsmönster/säsong i försäljningen?
+def revenue_per_season()
+>>>>>>> 3e3ee11 (Försöker fetcha)
 =======
 # När säljer vi? – finns tidsmönster/säsong i försäljningen?
 def revenue_per_season()
