@@ -133,26 +133,34 @@ def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
 
 
 #-----------BERÄKNINGAR TOTAL INTÄKT--------------
-df = pd.read_csv("Gruppuppgift/data/clean_data.csv")
+
+import pandas as pd
+
+#df = pd.read_csv(r"c:\Users\Mauro\Desktop\Gruppuppgift -Linnéa branch\Gruppuppgift\data\clean_data.csv")
+
+
 # Total Intäkt
 
-def total_revenue(df: pd.DataFrame) -> int:
-    return df["revenue_amount"].nunique()
+def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
+    return int(df["revenue"].sum())
+print(total_revenue) 
+
+
 
 # Intäkt över tid
 
-def revenue_over_time(df: pd.DataFrame) -> pd.DataFrame:
+
+def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
     """
     When do we get the highest vs smallest revenue?
     """
     ts = (
-        df.set_index["date"]
+        df.set_index("date")
         .sort_index()
-        .resample(freq)["revenue_amount"]
+        .resample(freq)["revenue"]
         .nunique()
         .reset_index()
        )
     return ts
 
 
-    #numerisk + numeriskt - mönster
