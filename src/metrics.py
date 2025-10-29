@@ -65,21 +65,23 @@ def calculate_aov_per_category(df):
     category_aov["AOV"] = category_aov["AOV"].round(0).astype(int)
     return category_aov
 
-# intäkt per stad
-
-# total intäkt
-
-# intäkt per kategori
-
-# intäkt över tid
+# Beräkning av AOV per stad
+def calculate_aov_per_city(df):
+    city_aov = (df.groupby("city")
+                    .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
+                    .reset_index(name="AOV")
+                    )
+    city_aov["AOV"] = city_aov["AOV"].round(0).astype(int)
+    return city_aov
 
 # Huvudfunktion som kör allt
 def calculate_aov(path="data/clean_data.csv"):
     df = load_and_prepare_data(path)
     monthly_aov, total_aov = calculate_aov_over_time(df)
     category_aov = calculate_aov_per_category(df)
+    city_aov = calculate_aov_per_city(df)
 
-    return monthly_aov, total_aov, category_aov
+    return monthly_aov, total_aov, category_aov, city_aov
 
 #--------------------------------------
 
