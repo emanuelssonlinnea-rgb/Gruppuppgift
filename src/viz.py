@@ -5,6 +5,7 @@
 # Tydliga rubriker, axlar och 1–2 meningar markdown som förklarar vad figuren visar.
 
 import matplotlib.pyplot as plt
+import pandas as pd
 
 #------------AOV I EN FIGUR--------------
 
@@ -86,11 +87,12 @@ def plot_tot_revenue_per_city(df):
     # Scaling to thousands for readability purposes
     df_revenue_city["revenue_thousands"] = df_revenue_city["total_revenue"] / 1000
 
-    fig, ax = plt.subplots(figsize=(8,5))
+    fig, ax = plt.subplots(figsize=(6,5))
     ax.bar(
         df_revenue_city["city"], 
         df_revenue_city["revenue_thousands"], 
-        color="LightGreen"
+        color="LightGreen",
+        width=0.7
     )
     
     ax.set_title("Total revenue per City")
@@ -101,3 +103,29 @@ def plot_tot_revenue_per_city(df):
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.show()
+
+# --- Total Intäkt & Intäkt över tid (månad) ---
+# hämtar datan från beräkningsfilen
+
+from src.metrics import revenue_over_time, total_revenue 
+calculate_revenue = revenue_over_time, total_revenue
+
+
+
+def revenue_monthly_bar(ax, x, y, title, xlabel, ylabel, grid: bool = True):
+    fig, ax = plt.subplots(figsize=(9,4))
+    ax.set_title("Revenue per month")
+    ax.set_xlabel("Month")
+    ax.set_ylabel("Revenue")
+    ax.grid(grid, axis = "y")
+    ax.legend()
+
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.show()
+    return ax
+
+
+    
+
+

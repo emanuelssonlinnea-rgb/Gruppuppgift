@@ -17,7 +17,6 @@ I report.ipynb svarar vi på frågor:
 - Isabel Caroline Holm
 - Linnéa Zulmira Moreira Emanuelsson
 - Mårten Jakob Ali Ohlsén Salahshour
-- Ömer Berk Kilicasan
 
 ## Vad vi har gjort / ansvar
 Öppnat github repository

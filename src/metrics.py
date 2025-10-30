@@ -2,6 +2,9 @@
 
 # # Kräver att man först öppnar en csv och därefter kör "variabel" = csvreader, och matar sedan in variabeln i revenue_per_category(reader)
 # import csv
+import numpy as np
+import matplotlib as plt
+import pandas as pd
 
 def revenue_per_category(reader): 
     dictionary_of_category_and_revenue = {}
@@ -31,7 +34,7 @@ def revenue_per_category(reader):
 # Intäkt per stad
 # Top-3 kategorier efter intäkt
 
-import pandas as pd
+
 
 #-----------BERÄKNINGAR AOV--------------
 
@@ -85,6 +88,7 @@ def calculate_aov(df: pd.DataFrame):
 # Revenue per city
 def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
     """
+    Where do we sell?
     Divides the rows by city and calculates the revenue per group.
     Takes in a clean dataset containing "city" and "revenue" columns and returns a data frame with one row per city and its total revenue.
     """
@@ -94,3 +98,41 @@ def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
         .sort_values("total_revenue", ascending=False)
         .reset_index()
         )  
+
+# Top 3 cities
+def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
+    return revenue_per_city(df).head(3)
+
+
+#-----------BERÄKNINGAR TOTAL INTÄKT & INTÄKT ÖVER TID (MÅNAD)--------------
+
+import pandas as pd
+
+#df = pd.read_csv(r"c:\Users\Mauro\Desktop\Gruppuppgift -Linnéa branch\Gruppuppgift\data\clean_data.csv")
+
+
+# Total Intäkt
+
+def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
+    
+    return int(df["revenue"].sum())
+
+
+# Intäkt över tid (månad)
+
+def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
+    """
+    When do we get the highest vs smallest revenue?
+    """
+    ts = (
+        df.set_index("month")
+        .sort_index()
+        .resample(freq)["revenue"]
+        .nunique()
+        .reset_index()
+       )
+    ts["month"] = ts["month"].dt.strftime("%Y-%m")   # Convert 'month' column to string format like '2024-01'
+    
+    return ts
+
+ 
