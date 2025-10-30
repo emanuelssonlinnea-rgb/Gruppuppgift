@@ -115,8 +115,9 @@ import pandas as pd
 # Total Intäkt
 
 def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
+    
     return int(df["revenue"].sum())
-print(total_revenue) 
+
 
 # Intäkt över tid (månad)
 
@@ -135,4 +136,4 @@ def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
     
     return ts
 
-    #numerisk + numeriskt - mönster
+ 
