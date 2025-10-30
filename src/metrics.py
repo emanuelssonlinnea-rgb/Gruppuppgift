@@ -81,13 +81,6 @@ def calculate_aov(df: pd.DataFrame):
     return monthly_aov, total_aov, category_aov, city_aov
 
 #--------------------------------------
-  
-# Intäkt per stad
-#df = pd.read_csv("Gruppuppgift/data/clean_data.csv")
-df = pd.read_csv("data/clean_data.csv")
-
-revenue_per_city = df.groupby("city")["revenue"].sum().sort_values(ascending=False)
-df_revenue_city = revenue_per_city.reset_index()
 
 # Revenue per city
 def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
@@ -96,7 +89,7 @@ def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
     Takes in a clean dataset containing "city" and "revenue" columns and returns a data frame with one row per city and its total revenue.
     """
     return (
-        df.groupby("city", dropna=False)
+        df.groupby("city", dropna=False, observed=True)
         .agg(total_revenue=("revenue", "sum"))
         .sort_values("total_revenue", ascending=False)
         .reset_index()
