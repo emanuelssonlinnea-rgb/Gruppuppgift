@@ -5,15 +5,17 @@
 # Tydliga rubriker, axlar och 1–2 meningar markdown som förklarar vad figuren visar.
 
 import matplotlib.pyplot as plt
+import pandas as pd
 
 #------------AOV I EN FIGUR--------------
 
 # hämtar datan från beräkningsfilen
 from src.metrics import calculate_aov 
 # monthly_aov, total_aov = calculate_aov()
+from metrics import *
 
-def plot_aov_figure(df):
-    monthly_aov, total_aov, category_aov, city_aov = calculate_aov()
+def plot_aov_figure(df: pd.DataFrame):
+    monthly_aov, total_aov, category_aov, city_aov = calculate_aov(df)
 
     # Skapar en figur med tre deldigram bredvid varandra
     fig, axes = plt.subplots(1, 3, figsize=(16, 6), sharex=False, sharey=False)
@@ -83,3 +85,28 @@ def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
     ax.grid(grid, axis="y", alpha=0.5)
     plt.xticks(rotation=45)
     return ax
+# --- Total Intäkt & Intäkt över tid (månad) ---
+# hämtar datan från beräkningsfilen
+
+from src.metrics import revenue_over_time, total_revenue 
+calculate_revenue = revenue_over_time, total_revenue
+
+
+
+def revenue_monthly_bar(ax, x, y, title, xlabel, ylabel, grid: bool = True):
+    fig, ax = plt.subplots(figsize=(9,4))
+    ax.set_title("Revenue per month")
+    ax.set_xlabel("Month")
+    ax.set_ylabel("Revenue")
+    ax.grid(grid, axis = "y")
+    ax.legend()
+
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.show()
+    return ax
+
+
+    
+
+

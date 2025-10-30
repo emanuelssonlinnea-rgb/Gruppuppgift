@@ -37,14 +37,13 @@ def revenue_per_category(reader):
 #-----------BERÄKNINGAR AOV--------------
 
 # Laddar och förbereder datan
-def load_and_prepare_data(path="data/clean_data.csv"):
-    df = pd.read_csv(path)
+def load_and_prepare_data(df: pd.DataFrame):
     df["date"] = pd.to_datetime(df["date"])
     df["month"] = df["date"].dt.to_period("M").astype(str)
     return df
 
 # Beräkning av AOV över tid (totalt & månad)
-def calculate_aov_over_time(df):
+def calculate_aov_over_time(df: pd.DataFrame):
     total_aov = df["revenue"].sum() / df["order_id"].nunique()
     monthly_aov = (df.groupby("month")
                    .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
@@ -56,7 +55,7 @@ def calculate_aov_over_time(df):
     return monthly_aov, round(total_aov)
 
 # Beräkning av AOV per kategori
-def calculate_aov_per_category(df):
+def calculate_aov_per_category(df: pd.DataFrame):
     category_aov = (df.groupby("category")
                     .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
                     .reset_index(name="AOV")
@@ -65,7 +64,7 @@ def calculate_aov_per_category(df):
     return category_aov
 
 # Beräkning av AOV per stad
-def calculate_aov_per_city(df):
+def calculate_aov_per_city(df: pd.DataFrame):
     city_aov = (df.groupby("city")
                     .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
                     .reset_index(name="AOV")
@@ -74,8 +73,8 @@ def calculate_aov_per_city(df):
     return city_aov
 
 # Huvudfunktion som kör allt
-def calculate_aov(df):
-    df = load_and_prepare_data(path)
+def calculate_aov(df: pd.DataFrame):
+    df = load_and_prepare_data(df)
     monthly_aov, total_aov = calculate_aov_over_time(df)
     category_aov = calculate_aov_per_category(df)
     city_aov = calculate_aov_per_city(df)
@@ -100,57 +99,35 @@ def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
     return revenue_per_city(df).head(3)
 
 
+#-----------BERÄKNINGAR TOTAL INTÄKT & INTÄKT ÖVER TID (MÅNAD)--------------
+
+import pandas as pd
+
+#df = pd.read_csv(r"c:\Users\Mauro\Desktop\Gruppuppgift -Linnéa branch\Gruppuppgift\data\clean_data.csv")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#-----------BERÄKNINGAR TOTAL INTÄKT--------------
 # Total Intäkt
 
-def total_revenue(df: pd.DataFrame) -> int:
-    return df["revenue_amount"].nunique()
+def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
+    
+    return int(df["revenue"].sum())
 
-# Intäkt över tid
 
-def revenue_over_time(df: pd.DataFrame) -> pd.DataFrame:
+# Intäkt över tid (månad)
+
+def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
     """
     When do we get the highest vs smallest revenue?
     """
     ts = (
-        df.set_index["date"]
+        df.set_index("month")
         .sort_index()
-        .resample(freq)["revenue_amount"]
+        .resample(freq)["revenue"]
         .nunique()
         .reset_index()
        )
+    ts["month"] = ts["month"].dt.strftime("%Y-%m")   # Convert 'month' column to string format like '2024-01'
+    
     return ts
 
-
-    #numerisk + numeriskt - mönster
+ 
