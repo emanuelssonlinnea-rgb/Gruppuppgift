@@ -109,42 +109,26 @@ def plot_tot_revenue_per_city(df):
 
 # --- Total Intäkt & Intäkt över tid (månad) ---
 # hämtar datan från beräkningsfilen
-from src.metrics import calculate_revenue 
-revenue_over_time, total_revenue = calculate_revenue()
 
-fig, ax = plt.subplots(figsize=(9,4))
+from src.metrics import revenue_over_time, total_revenue 
+calculate_revenue = revenue_over_time, total_revenue
+
+
 
 def revenue_monthly_bar(ax, x, y, title, xlabel, ylabel, grid: bool = True):
+    fig, ax = plt.subplots(figsize=(9,4))
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
     ax.grid(grid, axis = "y")
     ax.legend()
+
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.show()
     return ax
+
 
     
 
-# ------
-# def plot_aov_figure(df):
-#     monthly_aov, total_aov, category_aov, city_aov = calculate_aov()
 
-#     # Skapar en figur med tre deldigram bredvid varandra
-#     fig, axes = plt.subplots(1, 3, figsize=(16, 6), sharex=False, sharey=False)
-
-#     # Delgraf 1: AOV over time
-#     ax1 = axes[0]
-#     ax1.bar(monthly_aov["month"], monthly_aov["AOV"], color="orange")
-#     ax1.axhline(y=total_aov, color="grey", linestyle="--", linewidth=1, label="Genomsnittlig AOV")
-
-#     # lägger till etiketter (AOV värdena) på stolparna 
-#     for i, v in enumerate(monthly_aov["AOV"]):
-#         ax1.text(i, v - 100, f"{v}", ha="center", va="top", color= "white")
-
-#     # anpassar utseendet
-#     ax1.set_title("AOV per månad")
-#     ax1.set_xlabel("Månad")
-#     ax1.set_ylabel("AOV i kr")
-#     ax1.set_ylim(0, 2300)
-#     ax1.grid(True, axis="y")
-#     ax1.legend()
-#     ax1.tick_params(axis='x', rotation=45)
