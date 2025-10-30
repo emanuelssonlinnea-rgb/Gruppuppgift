@@ -39,8 +39,8 @@ def revenue_per_category(reader):
 #-----------BERÄKNINGAR AOV--------------
 
 # Laddar och förbereder datan
-def load_and_prepare_data(path="data/clean_data.csv"):
-    df = pd.read_csv(path)
+def load_and_prepare_data(df):
+    df = pd.read_csv(pd.DataFrame)
     df["date"] = pd.to_datetime(df["date"])
     df["month"] = df["date"].dt.to_period("M").astype(str)
     return df
@@ -76,8 +76,8 @@ def calculate_aov_per_city(df):
     return city_aov
 
 # Huvudfunktion som kör allt
-def calculate_aov(path="data/clean_data.csv"):
-    df = load_and_prepare_data(path)
+def calculate_aov(df):
+    df = load_and_prepare_data(pd.DataFrame)
     monthly_aov, total_aov = calculate_aov_over_time(df)
     category_aov = calculate_aov_per_category(df)
     city_aov = calculate_aov_per_city(df)

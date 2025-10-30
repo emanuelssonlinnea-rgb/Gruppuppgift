@@ -110,7 +110,7 @@ def plot_tot_revenue_per_city(df):
 # --- Total Intäkt & Intäkt över tid (månad) ---
 # hämtar datan från beräkningsfilen
 
-from src.metrics import revenue_over_time, total_revenue 
+from metrics import revenue_over_time, total_revenue 
 calculate_revenue = revenue_over_time, total_revenue
 
 
