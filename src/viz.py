@@ -10,11 +10,10 @@ import pandas as pd
 #------------AOV I EN FIGUR--------------
 
 # hämtar datan från beräkningsfilen
-from src.metrics import calculate_aov 
-monthly_aov, total_aov = calculate_aov()
+from metrics import *
 
-def plot_aov_figure(df):
-    monthly_aov, total_aov, category_aov, city_aov = calculate_aov()
+def plot_aov_figure(df: pd.DataFrame):
+    monthly_aov, total_aov, category_aov, city_aov = calculate_aov(df)
 
     # Skapar en figur med tre deldigram bredvid varandra
     fig, axes = plt.subplots(1, 3, figsize=(16, 6), sharex=False, sharey=False)
@@ -77,8 +76,6 @@ def plot_aov_figure(df):
 
 
 # --- Intäkt per stad ---
-#from src.metrics import revenue_per_city
-from metrics import revenue_per_city
 def plot_tot_revenue_per_city(df):
     """
     Plots the total revenue per city in a bar chart
