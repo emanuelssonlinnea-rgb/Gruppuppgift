@@ -39,14 +39,13 @@ def revenue_per_category(reader):
 #-----------BERÄKNINGAR AOV--------------
 
 # Laddar och förbereder datan
-def load_and_prepare_data(df):
-    df = pd.read_csv(pd.DataFrame)
+def load_and_prepare_data(df: pd.DataFrame):
     df["date"] = pd.to_datetime(df["date"])
     df["month"] = df["date"].dt.to_period("M").astype(str)
     return df
 
 # Beräkning av AOV över tid (totalt & månad)
-def calculate_aov_over_time(df):
+def calculate_aov_over_time(df: pd.DataFrame):
     total_aov = df["revenue"].sum() / df["order_id"].nunique()
     monthly_aov = (df.groupby("month")
                    .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
@@ -58,7 +57,7 @@ def calculate_aov_over_time(df):
     return monthly_aov, round(total_aov)
 
 # Beräkning av AOV per kategori
-def calculate_aov_per_category(df):
+def calculate_aov_per_category(df: pd.DataFrame):
     category_aov = (df.groupby("category")
                     .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
                     .reset_index(name="AOV")
@@ -67,7 +66,7 @@ def calculate_aov_per_category(df):
     return category_aov
 
 # Beräkning av AOV per stad
-def calculate_aov_per_city(df):
+def calculate_aov_per_city(df: pd.DataFrame):
     city_aov = (df.groupby("city")
                     .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
                     .reset_index(name="AOV")
@@ -76,8 +75,8 @@ def calculate_aov_per_city(df):
     return city_aov
 
 # Huvudfunktion som kör allt
-def calculate_aov(df):
-    df = load_and_prepare_data(pd.DataFrame)
+def calculate_aov(df: pd.DataFrame):
+    df = load_and_prepare_data(df)
     monthly_aov, total_aov = calculate_aov_over_time(df)
     category_aov = calculate_aov_per_category(df)
     city_aov = calculate_aov_per_city(df)
