@@ -2,8 +2,6 @@
 
 # # Kräver att man först öppnar en csv och därefter kör "variabel" = csvreader, och matar sedan in variabeln i revenue_per_category(reader)
 # import csv
-import numpy as np
-import matplotlib as plt
 import pandas as pd
 
 def revenue_per_category(reader): 
@@ -89,15 +87,12 @@ def calculate_aov(df: pd.DataFrame):
 def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
     """
     Where do we sell?
-    Divides the rows by city and calculates the revenue per group.
-    Takes in a clean dataset containing "city" and "revenue" columns and returns a data frame with one row per city and its total revenue.
     """
     return (
-        df.groupby("city", dropna=False, observed=True)
-        .agg(total_revenue=("revenue", "sum"))
-        .sort_values("total_revenue", ascending=False)
-        .reset_index()
-        )  
+        df.groupby("city", observed=True)
+        .agg(tot_rev_city=("revenue", "sum"))
+        .sort_values("tot_rev_city", ascending=False)
+        .reset_index())
 
 # Top 3 cities
 def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
