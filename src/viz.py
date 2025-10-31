@@ -10,7 +10,13 @@ import pandas as pd
 #------------AOV I EN FIGUR--------------
 
 # hämtar datan från beräkningsfilen
+<<<<<<< HEAD
 #from metrics import *
+=======
+from src.metrics import calculate_aov 
+# monthly_aov, total_aov = calculate_aov()
+from metrics import *
+>>>>>>> 6872bb9d0afe6ea619e8860ea1d871b8b2605340
 
 def plot_aov_figure(df: pd.DataFrame):
     monthly_aov, total_aov, category_aov, city_aov = calculate_aov(df)
@@ -74,36 +80,15 @@ def plot_aov_figure(df: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
-
-# --- Intäkt per stad ---
-def plot_tot_revenue_per_city(df):
-    """
-    Plots the total revenue per city in a bar chart
-    """
-
-    # Calculate the metric
-    df_revenue_city = revenue_per_city(df)
-
-    # Scaling to thousands for readability purposes
-    df_revenue_city["revenue_thousands"] = df_revenue_city["total_revenue"] / 1000
-
-    fig, ax = plt.subplots(figsize=(6,5))
-    ax.bar(
-        df_revenue_city["city"], 
-        df_revenue_city["revenue_thousands"], 
-        color="LightGreen",
-        width=0.7
-    )
-    
-    ax.set_title("Total revenue per City")
-    ax.set_xlabel ("City")
-    ax.set_ylabel("Revenue (thousands)")
-    ax.grid(True, axis="y", alpha=0.5)
-
-    plt.xticks(rotation=45, ha="right")
-    plt.tight_layout()
-    plt.show()
-
+# Function for bar plots
+def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
+    ax.bar(x, y, color=color)
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.grid(grid, axis="y", alpha=0.5)
+    plt.xticks(rotation=45)
+    return ax
 # --- Total Intäkt & Intäkt över tid (månad) ---
 # hämtar datan från beräkningsfilen
 
