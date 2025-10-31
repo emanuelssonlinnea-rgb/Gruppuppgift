@@ -101,8 +101,6 @@ def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
 
 #-----------BERÄKNINGAR TOTAL INTÄKT & INTÄKT ÖVER TID (MÅNAD)--------------
 
-import pandas as pd
-
 #df = pd.read_csv(r"c:\Users\Mauro\Desktop\Gruppuppgift -Linnéa branch\Gruppuppgift\data\clean_data.csv")
 
 

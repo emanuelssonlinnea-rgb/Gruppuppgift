@@ -6,13 +6,17 @@
 
 import matplotlib.pyplot as plt
 import pandas as pd
+from src import * 
+"""
+from src import * imports all the functions from all the files in the folder src. After this import we don't need any other.
+"""
 
 #------------AOV I EN FIGUR--------------
 
 # hämtar datan från beräkningsfilen
-from src.metrics import calculate_aov 
+# from src.metrics import calculate_aov 
 # monthly_aov, total_aov = calculate_aov()
-from metrics import *
+#from metrics import *
 
 def plot_aov_figure(df: pd.DataFrame):
     monthly_aov, total_aov, category_aov, city_aov = calculate_aov(df)
@@ -88,8 +92,8 @@ def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
 # --- Total Intäkt & Intäkt över tid (månad) ---
 # hämtar datan från beräkningsfilen
 
-from src.metrics import revenue_over_time, total_revenue 
-calculate_revenue = revenue_over_time, total_revenue
+#from src.metrics import revenue_over_time, total_revenue 
+#calculate_revenue = revenue_over_time, total_revenue
 
 
 
