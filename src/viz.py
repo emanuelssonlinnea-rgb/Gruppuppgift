@@ -10,7 +10,7 @@ import pandas as pd
 #------------AOV I EN FIGUR--------------
 
 # hämtar datan från beräkningsfilen
-from metrics import *
+#from metrics import *
 
 def plot_aov_figure(df: pd.DataFrame):
     monthly_aov, total_aov, category_aov, city_aov = calculate_aov(df)
