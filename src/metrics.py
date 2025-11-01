@@ -102,3 +102,10 @@ def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
         .nunique()
         .reset_index()
         )  
+
+def revenue_per_category(df: pd.DataFrame) -> pd.DataFrame:
+    return (df.groupby(["category"])["revenue"].sum() / 1000).sort_values(ascending=False)
+
+def top_3_revenue_per_category(df: pd.DataFrame) -> pd.DataFrame:
+    top_3_category = revenue_per_category(df).head(3)
+    return top_3_category
