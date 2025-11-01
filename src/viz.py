@@ -5,22 +5,10 @@
 # Tydliga rubriker, axlar och 1–2 meningar markdown som förklarar vad figuren visar.
 
 import matplotlib.pyplot as plt
-import pandas as pd
-from src import * 
-"""
-from src import * imports all the functions from all the files in the folder src. After this import we don't need any other.
-"""
 
-#------------AOV I EN FIGUR--------------
+#------------PLOTTING ALL AOV I ONE FIGURE------------------
 
-# hämtar datan från beräkningsfilen
-# from src.metrics import calculate_aov 
-# monthly_aov, total_aov = calculate_aov()
-#from metrics import *
-
-def plot_aov_figure(df: pd.DataFrame):
-    monthly_aov, total_aov, category_aov, city_aov = calculate_aov(df)
-
+def plot_aov_figure(monthly_aov, total_aov, category_aov, city_aov):
     # Skapar en figur med tre deldigram bredvid varandra
     fig, axes = plt.subplots(1, 3, figsize=(16, 6), sharex=False, sharey=False)
 
