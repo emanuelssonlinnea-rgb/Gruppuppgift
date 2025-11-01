@@ -48,7 +48,7 @@ def calculate_total_aov(df: pd.DataFrame) -> pd.DataFrame:
     return total_aov
 
 # Beräkning av AOV över tid (totalt & månad)
-def calculate_aov_over_time(df: pd.DataFrame) -> pd.DataFrame:
+def calculate_aov_per_month(df: pd.DataFrame) -> pd.DataFrame:
     monthly_aov = (df.groupby("month")
                    .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
                    .reset_index(name="AOV")
@@ -76,15 +76,25 @@ def calculate_aov_per_city(df: pd.DataFrame) -> pd.DataFrame:
     city_aov["AOV"] = city_aov["AOV"].round(0).astype(int)
     return city_aov
 
+# Beräknar genomsnittligt antal produkter sålda per order 
+def calculate_average_units_per_order(df: pd.DataFrame) -> pd.DataFrame:
+    ave_units_per_order = df["units"].sum() / df["order_id"].count()
+    return ave_units_per_order.round(2).astype(float)
+
 # Huvudfunktion som kör allt
-def calculate_aov(df: pd.DataFrame) -> tuple[pd.DataFrame, float, pd.DataFrame, pd.DataFrame]:
+def calculate_aov(df: pd.DataFrame) -> tuple[pd.DataFrame, float, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     df = load_and_prepare_data(df)
-    monthly_aov = calculate_aov_over_time(df)
+    monthly_aov = calculate_aov_per_month(df)
     total_aov = calculate_total_aov(df)
     category_aov = calculate_aov_per_category(df)
     city_aov = calculate_aov_per_city(df)
+    ave_units_per_order = calculate_average_units_per_order(df)
+    
+    return monthly_aov, total_aov, category_aov, city_aov, ave_units_per_order
 
-    return monthly_aov, total_aov, category_aov, city_aov
+#------------BERÄKNING AV ANTAL ENHETER PER
+
+
 
 #--------------------------------------
 
