@@ -168,5 +168,15 @@ def boxplot_revenue_per_category(df: pd.DataFrame) -> pd.DataFrame:
     plt.show()
 
 
+# Funktion till bar plot
+def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
+    ax.bar(x, y, color=color)
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.grid(grid, axis="y", alpha=0.5)
+    plt.xticks(rotation=45)
+    return ax
+
 
 
