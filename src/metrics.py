@@ -1,5 +1,27 @@
+# # Intäkter per kategori
 
+# # Kräver att man först öppnar en csv och därefter kör "variabel" = csvreader, och matar sedan in variabeln i revenue_per_category(reader)
+# import csv
 import pandas as pd
+
+def revenue_per_category(reader): 
+    dictionary_of_category_and_revenue = {}
+    list_of_category_and_revenue = []
+    next(reader)
+
+    for row in reader:
+        if row[3] not in dictionary_of_category_and_revenue:
+            dictionary_of_category_and_revenue[row[3]] = float(row[6])
+        elif row[3] in dictionary_of_category_and_revenue:
+            dictionary_of_category_and_revenue[row[3]] += float(row[6])
+        else:
+            print("Error - cannot read your input variabel correctly. Please check if it is a dictionary! Only dictionaries here plz <3")
+
+    for category, revenue in dictionary_of_category_and_revenue.items():
+        list_of_category_and_revenue.append((category, revenue))
+    
+    return sorted(list_of_category_and_revenue, key=lambda item: item[1], reverse=True)
+    
 
 # filen till nyckeltals-funktioner:
 
@@ -15,14 +37,18 @@ import pandas as pd
 #-----------BERÄKNINGAR AOV--------------
 
 # Laddar och förbereder datan
-def load_and_prepare_data(df: pd.DataFrame):
+def load_and_prepare_data(df: pd.DataFrame) -> pd.DataFrame:
     df["date"] = pd.to_datetime(df["date"])
     df["month"] = df["date"].dt.to_period("M").astype(str)
     return df
 
-# Beräkning av AOV över tid (totalt & månad)
-def calculate_aov_over_time(df: pd.DataFrame):
+# Beräknar AOV för samtliga ordrar 
+def calculate_total_aov(df: pd.DataFrame) -> pd.DataFrame:
     total_aov = df["revenue"].sum() / df["order_id"].nunique()
+    return total_aov
+
+# Beräkning av AOV över tid (totalt & månad)
+def calculate_aov_per_month(df: pd.DataFrame) -> pd.DataFrame:
     monthly_aov = (df.groupby("month")
                    .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
                    .reset_index(name="AOV")
@@ -30,10 +56,10 @@ def calculate_aov_over_time(df: pd.DataFrame):
     # Rundar & sorterar
     monthly_aov["AOV"] = monthly_aov["AOV"].round(0).astype(int)
     monthly_aov = monthly_aov.sort_values("month")
-    return monthly_aov, round(total_aov)
+    return monthly_aov
 
 # Beräkning av AOV per kategori
-def calculate_aov_per_category(df: pd.DataFrame):
+def calculate_aov_per_category(df: pd.DataFrame) -> pd.DataFrame:
     category_aov = (df.groupby("category")
                     .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
                     .reset_index(name="AOV")
@@ -42,7 +68,7 @@ def calculate_aov_per_category(df: pd.DataFrame):
     return category_aov
 
 # Beräkning av AOV per stad
-def calculate_aov_per_city(df: pd.DataFrame):
+def calculate_aov_per_city(df: pd.DataFrame) -> pd.DataFrame:
     city_aov = (df.groupby("city")
                     .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
                     .reset_index(name="AOV")
@@ -50,14 +76,25 @@ def calculate_aov_per_city(df: pd.DataFrame):
     city_aov["AOV"] = city_aov["AOV"].round(0).astype(int)
     return city_aov
 
+# Beräknar genomsnittligt antal produkter sålda per order 
+def calculate_average_units_per_order(df: pd.DataFrame) -> pd.DataFrame:
+    ave_units_per_order = df["units"].sum() / df["order_id"].count()
+    return ave_units_per_order.round(2).astype(float)
+
 # Huvudfunktion som kör allt
-def calculate_aov(df: pd.DataFrame):
+def calculate_aov(df: pd.DataFrame) -> tuple[pd.DataFrame, float, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     df = load_and_prepare_data(df)
-    monthly_aov, total_aov = calculate_aov_over_time(df)
+    monthly_aov = calculate_aov_per_month(df)
+    total_aov = calculate_total_aov(df)
     category_aov = calculate_aov_per_category(df)
     city_aov = calculate_aov_per_city(df)
+    ave_units_per_order = calculate_average_units_per_order(df)
+    
+    return monthly_aov, total_aov, category_aov, city_aov, ave_units_per_order
 
-    return monthly_aov, total_aov, category_aov, city_aov
+#------------BERÄKNING AV ANTAL ENHETER PER
+
+
 
 #--------------------------------------
 
@@ -101,7 +138,10 @@ def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
         .resample(freq)["revenue"]
         .nunique()
         .reset_index()
-        )  
+       )
+    ts["month"] = ts["month"].dt.strftime("%Y-%m")   # Convert 'month' column to string format like '2024-01'
+    
+    return ts
 
 
 # Revenue per category
