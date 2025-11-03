@@ -102,6 +102,51 @@ def revenue_monthly_bar(ax, x, y, title, xlabel, ylabel, grid: bool = True):
     return ax
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Jakobs 
 
 def plot_revenue_per_category(df1: pd.DataFrame):
