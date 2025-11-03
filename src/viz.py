@@ -7,6 +7,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from src.metrics import *
 
 #------------PLOTTING ORDER VALUE IN ONE FIGURE------------------
 
@@ -134,6 +135,48 @@ def revenue_monthly_bar(ax, x, y, title, xlabel, ylabel, grid: bool = True):
     return ax
 
 
-    
+# -- Intäkt per kategori --
+# Plottar intäkt per kategori samt top 3 kategorier och plot med outliers
+
+def plot_revenue_per_category(df1: pd.DataFrame):
+    df_revenue_per_category_1 = revenue_per_category(df1)
+    df_top_3_revenue_per_category = top_3_revenue_per_category(df1)
+    fig, axes = plt.subplots(1,2, figsize=(10,8))
+    df_revenue_per_category_1.plot(kind="bar", ax=axes[0], legend=False)
+    axes[0].set_title("Revenue per category")
+    axes[0].set_xlabel("")
+    axes[0].set_ylabel("Revenue in thousands")
+    axes[0].tick_params(axis='x', rotation=0)
+
+    df_top_3_revenue_per_category.plot(kind="bar", ax=axes[1], legend=False)
+    axes[1].set_title("Top 3 revenue per month")
+    axes[1].tick_params(axis='x', rotation=0)
+    fig.suptitle("Revenue per category and top 3 revenue per category", y=1.02)
+
+    plt.tight_layout()
+    plt.show()
+
+
+def boxplot_revenue_per_category(df: pd.DataFrame) -> pd.DataFrame:
+    fig, ax = plt.subplots(figsize=(8,5))
+    df.boxplot(column="revenue", by="category", ax=ax)
+    ax.set_title("Revenue per category")
+    ax.set_xlabel("")
+    ax.set_ylabel("Revenue")
+    plt.suptitle("")
+    plt.tight_layout()
+    plt.show()
+
+
+# Funktion till bar plot
+def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
+    ax.bar(x, y, color=color)
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.grid(grid, axis="y", alpha=0.5)
+    plt.xticks(rotation=45)
+    return ax
+
 
 

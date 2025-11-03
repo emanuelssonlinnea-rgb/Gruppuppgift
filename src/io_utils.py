@@ -18,3 +18,4 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
         df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
     
     return df
+
