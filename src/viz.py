@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from src import *
+from src.metrics import *
 
 #------------AOV I EN FIGUR--------------
 
@@ -104,15 +104,17 @@ def revenue_monthly_bar(ax, x, y, title, xlabel, ylabel, grid: bool = True):
 
 # Jakobs 
 
-def plot_revenue_per_category(df1: pd.DataFrame, df2: pd.DataFrame):
+def plot_revenue_per_category(df1: pd.DataFrame):
+    df_revenue_per_category_1 = revenue_per_category(df1)
+    df_top_3_revenue_per_category = top_3_revenue_per_category(df1)
     fig, axes = plt.subplots(1,2, figsize=(10,8))
-    df1.plot(kind="bar", ax=axes[0], legend=False)
+    df_revenue_per_category_1.plot(kind="bar", ax=axes[0], legend=False)
     axes[0].set_title("Revenue per category")
     axes[0].set_xlabel("")
     axes[0].set_ylabel("Revenue in thousands")
     axes[0].tick_params(axis='x', rotation=0)
 
-    df2.plot(kind="bar", ax=axes[1], legend=False)
+    df_top_3_revenue_per_category.plot(kind="bar", ax=axes[1], legend=False)
     axes[1].set_title("Top 3 revenue per month")
     axes[1].tick_params(axis='x', rotation=0)
     fig.suptitle("Revenue per category and top 3 revenue per category", y=1.02)
@@ -120,17 +122,17 @@ def plot_revenue_per_category(df1: pd.DataFrame, df2: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
+
 def boxplot_revenue_per_category(df: pd.DataFrame) -> pd.DataFrame:
     fig, ax = plt.subplots(figsize=(8,5))
     df.boxplot(column="revenue", by="category", ax=ax)
     ax.set_title("Revenue per category")
     ax.set_xlabel("")
-    ax.set_ylabel("Revenue per thousands")
+    ax.set_ylabel("Revenue")
     plt.suptitle("")
     plt.tight_layout()
     plt.show()
 
 
-    
 
 
