@@ -119,25 +119,31 @@ def plot_ov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd
 
 
 # --- Total Intäkt & Intäkt över tid (månad) ---
-# hämtar datan från beräkningsfilen
-
-#from src.metrics import revenue_over_time, total_revenue 
-#calculate_revenue = revenue_over_time, total_revenue
 
 
 
-def revenue_monthly_bar(ax, x, y, title, xlabel, ylabel, grid: bool = True):
+
+def revenue_monthly_bar(df: pd.DataFrame) -> pd.DataFrame:
     fig, ax = plt.subplots(figsize=(9,4))
+    ax.hist(df["Revenue"] , bins=30, color="skyblue", edgecolor="black")
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
     ax.grid(True, axis = "y")
     ax.legend()
-
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.show()
-    return ax
+  
+  def revenue_monthly_boxpliot(df: pd.DataFrame) -> pd.DataFrame:
+    fig, ax = plt.subplots(figsize=(8,5))
+    df.boxplot(column="Revenue", by="Month", ax=ax)
+    ax.set_title("Revenue per month")
+    ax.set_xlabel("")
+    ax.set_ylabel("Revenue")
+    plt.suptitle("")
+    plt.tight_layout()
+    plt.show()
 
 
 # -- Intäkt per kategori --
