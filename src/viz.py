@@ -120,12 +120,21 @@ def plot_ov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd
 
 # --- Total Intäkt & Intäkt över tid (månad) ---
 
-
-
-
 def revenue_monthly_bar(df: pd.DataFrame) -> pd.DataFrame:
     fig, ax = plt.subplots(figsize=(9,4))
-    ax.hist(df["revenue"] , bins=30, color="skyblue", edgecolor="black")
+    # ax.bar(sumclass["month"], sumclass["revenue"], color="skyblue", edgecolor="black")
+    # ax.set_title("Revenue per month")
+    # ax.set_xlabel("Month")
+    # ax.set_ylabel("Revenue")
+    # ax.grid(True, axis = "y")
+    # ax.legend()
+    # plt.xticks(rotation=45, ha="right")
+    # plt.tight_layout()
+    # plt.show()
+
+
+
+    ax.hist(df["month"] , bins=12, color="skyblue", edgecolor="black")
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
@@ -134,6 +143,7 @@ def revenue_monthly_bar(df: pd.DataFrame) -> pd.DataFrame:
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.show()
+
   
 def revenue_monthly_boxplot(df: pd.DataFrame) -> pd.DataFrame:
     fig, ax = plt.subplots(figsize=(8,5))
