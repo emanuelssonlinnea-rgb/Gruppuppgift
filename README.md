@@ -22,12 +22,22 @@ I report.ipynb svarar vi på frågor:
 Öppnat github repository
 Skapat brancher
 Börjat koda
-
+Irene: förberedde data, beräknade intäkter per stad och tog fram topp 3-städer baserat på intäkter. Skapade ett stapeldiagram som visualiserar intäkterna per stad.
 
 
 ## Hur man kör projektet
+# klona projetet
+git clone https://github.com/emanuelssonlinnea-rgb/Gruppuppgift.git
+# Skapa och aktivera virtuell miljö
+python -m venv .venv
+# Windows PowerShell
+.venv\Scripts\Activate
+# macOS/Linux
+source .venv/bin/activate 
+# installera beroenden
+python -m pip install -r requirements.txt
 
-
-## Python version
+## Miljö
 Python 3.13.7
+Paket: Pandas, matplotlib (se requirements.txt)
 
