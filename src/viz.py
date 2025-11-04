@@ -9,6 +9,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from src.metrics import *
 
+from src import * 
+"""
+from src import * imports all the functions from all the files in the folder src. After this import we don't need any other.
+"""
+
 #------------PLOTTING ORDER VALUE IN ONE FIGURE------------------
 
 def plot_ov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd.DataFrame, city_aov: pd.DataFrame, ave_units_per_order: float, df: pd.DataFrame):
