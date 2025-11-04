@@ -126,7 +126,7 @@ def revenue_monthly_bar(ax, x, y, title, xlabel, ylabel, grid: bool = True):
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
-    ax.grid(grid, axis = "y")
+    ax.grid(True, axis = "y")
     ax.legend()
 
     plt.xticks(rotation=45, ha="right")
