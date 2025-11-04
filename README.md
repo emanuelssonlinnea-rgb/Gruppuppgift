@@ -1,1 +1,1 @@
-This is our documentation of work
+- **Abdullahi Sheek Elmi** – Totalt antal sålda enheter + visualisering per kategori
