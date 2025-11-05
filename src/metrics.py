@@ -176,6 +176,13 @@ def looking_for_them_outliers_in_category_revenue(df: pd.DataFrame):
 
     return ((pd.Series(number_of_them_outliers).sort_values(ascending=False)), (pd.Series(outliers_revenue).sort_values(ascending=False))), (pd.Series(revenue_without_outliers).sort_values(ascending=False))
 
+def total_sum_and_total_units_sold(df: pd.DataFrame):
+    df_new = {}
+    df_new["Total revenue"] = round((df["revenue"].sum()), 2)
+    df_new["Total units sold"] = (df["units"].sum())
+ 
+    return pd.Series(df_new)
+
 
 
 
