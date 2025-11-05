@@ -1,18 +1,7 @@
-# filen till plot-funktioner
-
-# från uppgiften i omniway:
-# Exempel: intäkt per kategori (stapeldiagram), försäljning över tid (linje/vecka eller månad).
-# Tydliga rubriker, axlar och 1–2 meningar markdown som förklarar vad figuren visar.
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from src.metrics import *
-
-from src import * 
-"""
-from src import * imports all the functions from all the files in the folder src. After this import we don't need any other.
-"""
 
 #------------PLOTTING ORDER VALUE IN ONE FIGURE------------------
 
@@ -74,21 +63,6 @@ def plot_ov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd
     ax3.legend()
     ax3.tick_params(axis='x', rotation=45)
 
-    # AOV per city 
-    #ax3.bar(city_aov["city"], city_aov["AOV"], color="blue")
-    #ax3.axhline(y=total_aov, color="grey", linestyle="--", linewidth=1, label="AOV all orders")
-
-    #for i, v in enumerate(city_aov["AOV"]):
-        #ax3.text(i, v - 100, f"{v}", ha="center", va="top", color= "white")
-
-    #ax3.set_title("AOV per city")
-    #ax3.set_xlabel("City")
-    #ax3.set_ylabel("AOV in kr")
-    #ax3.set_ylim(0, 2300)
-    #ax3.grid(True, axis="y")
-    #ax3.legend()
-    #ax3.tick_params(axis='x', rotation=45)
-
      # Delgraf 4: Ordervalue per category
     ax4 = axes[1, 1]
     # Grupperar revenue per kategori
@@ -122,7 +96,7 @@ def plot_ov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd
 
 def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
     fig, ax = plt.subplots(figsize=(9,4))
-    ax.bar(monthly_revenue["month"], monthly_revenue["revenue"], color="purple")
+    ax.hist(df["revenue"] , bins=30, color="skyblue", edgecolor="black")
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
@@ -156,7 +130,6 @@ def revenue_monthly_boxplot(df: pd.DataFrame) -> pd.DataFrame:
     plt.tight_layout()
     plt.show()
 
-
 # -- Intäkt per kategori --
 # Plottar intäkt per kategori samt top 3 kategorier och plot med outliers
 
@@ -168,23 +141,25 @@ def plot_revenue_per_category(df1: pd.DataFrame):
     axes[0].set_title("Revenue per category")
     axes[0].set_xlabel("")
     axes[0].set_ylabel("Revenue in thousands")
-    axes[0].tick_params(axis='x', rotation=0)
+    axes[0].tick_params(axis="x", rotation=0)
+    
 
     df_top_3_revenue_per_category.plot(kind="bar", ax=axes[1], legend=False)
     axes[1].set_title("Top 3 revenue per month")
-    axes[1].tick_params(axis='x', rotation=0)
+    axes[1].tick_params(axis="x", rotation=0)
     fig.suptitle("Revenue per category and top 3 revenue per category", y=1.02)
 
     plt.tight_layout()
     plt.show()
 
 
-def boxplot_revenue_per_category(df: pd.DataFrame) -> pd.DataFrame:
+def boxplot_revenue_per_category(df: pd.DataFrame):
     fig, ax = plt.subplots(figsize=(8,5))
     df.boxplot(column="revenue", by="category", ax=ax)
     ax.set_title("Revenue per category")
     ax.set_xlabel("")
     ax.set_ylabel("Revenue")
+    ax.axhline(y=calculate_total_aov(df), color="grey", linestyle="--", linewidth=1, label="AOV all orders")
     plt.suptitle("")
     plt.tight_layout()
     plt.show()
