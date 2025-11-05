@@ -4,35 +4,6 @@
 # import csv
 import pandas as pd
 
-def revenue_per_category(reader): 
-    dictionary_of_category_and_revenue = {}
-    list_of_category_and_revenue = []
-    next(reader)
-
-    for row in reader:
-        if row[3] not in dictionary_of_category_and_revenue:
-            dictionary_of_category_and_revenue[row[3]] = float(row[6])
-        elif row[3] in dictionary_of_category_and_revenue:
-            dictionary_of_category_and_revenue[row[3]] += float(row[6])
-        else:
-            print("Error - cannot read your input variabel correctly. Please check if it is a dictionary! Only dictionaries here plz <3")
-
-    for category, revenue in dictionary_of_category_and_revenue.items():
-        list_of_category_and_revenue.append((category, revenue))
-    
-    return sorted(list_of_category_and_revenue, key=lambda item: item[1], reverse=True)
-    
-
-# filen till nyckeltals-funktioner:
-
-# Total intäkt 
-# Totalt antal enheter
-# AOV (Average Order Value)
-# Intäkt per kategori
-# Intäkt per stad
-# Top-3 kategorier efter intäkt
-
-
 
 #-----------BERÄKNINGAR AOV--------------
 
@@ -94,9 +65,6 @@ def calculate_aov(df: pd.DataFrame) -> tuple[pd.DataFrame, float, pd.DataFrame, 
 
 #------------BERÄKNING AV ANTAL ENHETER PER
 
-
-
-#--------------------------------------
 
 # Revenue per city
 def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
