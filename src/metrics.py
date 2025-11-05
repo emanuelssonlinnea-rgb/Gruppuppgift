@@ -115,10 +115,7 @@ def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
 
 
 #-----------BERÄKNINGAR TOTAL INTÄKT & INTÄKT ÖVER TID (MÅNAD)--------------
-
-#df = pd.read_csv(r"c:\Users\Mauro\Desktop\Gruppuppgift -Linnéa branch\Gruppuppgift\data\clean_data.csv")
-
-
+import pandas as pd
 # Total Intäkt
 
 def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
@@ -133,16 +130,26 @@ def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
     When do we get the highest vs smallest revenue?
     """
     ts = (
-        df.set_index("month")
-        .sort_index()
+        df.set_index("date")
         .resample(freq)["revenue"]
-        .nunique()
+        .sum()
         .reset_index()
        )
-    ts["month"] = ts["month"].dt.strftime("%Y-%m")   # Convert 'month' column to string format like '2024-01'
+    
+    ts["month"] = ts["date"].dt.month_name()
+    month_order = ["January", "February", "March", "April", "May", "June"]
+    ts["month"] =pd.Categorical(ts["month"], categories=month_order, ordered=True)
+    ts=ts.ts.groupby("month", sort=False)["revenue"].sum().reset_index()
     
     return ts
 
+def revenue_over_time_monthly(df: pd.DataFrame) -> pd.DataFrame:
+    monthly_revenue = revenue_over_time(df, freq="M")
+    monthly_revenue = monthly_revenue.sort_values("month").reset_index(drop=True)
+    return monthly_revenue
+
+
+#-----------BERÄKNINGAR INTÄKT PER KATEGORI--------------
 
 # Revenue per category
 def revenue_per_category(df: pd.DataFrame) -> pd.DataFrame:
