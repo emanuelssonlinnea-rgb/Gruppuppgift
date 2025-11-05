@@ -94,9 +94,13 @@ def plot_ov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd
 
 # --- Total Intäkt & Intäkt över tid (månad) ---
 
-def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
+
+def revenue_monthly_bar(df: pd.DataFrame) -> None:
+    monthly = df.groupby("month", sort=False)["revenue"].sum().reset_index()
+    monthly = monthly.sort_values("month")
+    
     fig, ax = plt.subplots(figsize=(9,4))
-    ax.hist(df["revenue"] , bins=30, color="skyblue", edgecolor="black")
+    ax.bar(monthly["month"], monthly["revenue"], color="blue")
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
@@ -104,6 +108,17 @@ def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.show()
+
+# def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
+#     fig, ax = plt.subplots(figsize=(9,4))
+#     ax.hist(df["revenue"] , bins=30, color="skyblue", edgecolor="black")
+#     ax.set_title("Revenue per month")
+#     ax.set_xlabel("Month")
+#     ax.set_ylabel("Revenue")
+#     ax.grid(True, axis = "y")
+#     plt.xticks(rotation=45, ha="right")
+#     plt.tight_layout()
+#     plt.show()
 
 
 # def revenue_monthly_hist(df: pd.DataFrame) -> pd.DataFrame:
