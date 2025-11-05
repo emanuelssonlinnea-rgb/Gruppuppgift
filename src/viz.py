@@ -120,29 +120,29 @@ def plot_ov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd
 
 # --- Total Intäkt & Intäkt över tid (månad) ---
 
-def revenue_monthly_bar(df: pd.DataFrame) -> pd.DataFrame:
+def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
     fig, ax = plt.subplots(figsize=(9,4))
-    # ax.bar(sumclass["month"], sumclass["revenue"], color="skyblue", edgecolor="black")
-    # ax.set_title("Revenue per month")
-    # ax.set_xlabel("Month")
-    # ax.set_ylabel("Revenue")
-    # ax.grid(True, axis = "y")
-    # ax.legend()
-    # plt.xticks(rotation=45, ha="right")
-    # plt.tight_layout()
-    # plt.show()
-
-
-
-    ax.hist(df["month"] , bins=12, color="skyblue", edgecolor="black")
+    ax.bar(monthly_revenue["month"], monthly_revenue["revenue"], color="purple")
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
     ax.grid(True, axis = "y")
-    ax.legend()
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.show()
+
+
+# def revenue_monthly_hist(df: pd.DataFrame) -> pd.DataFrame:
+#     fig, ax = plt.subplots(figsize=(9,4))
+#     ax.hist(df["month"] , bins=12, color="skyblue", edgecolor="black")
+#     ax.set_title("Revenue per month")
+#     ax.set_xlabel("Month")
+#     ax.set_ylabel("Revenue")
+#     ax.grid(True, axis = "y")
+#     plt.xticks(rotation=45, ha="right")
+#     plt.tight_layout()
+#     plt.show()
+
 
   
 def revenue_monthly_boxplot(df: pd.DataFrame) -> pd.DataFrame:
@@ -151,6 +151,7 @@ def revenue_monthly_boxplot(df: pd.DataFrame) -> pd.DataFrame:
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
+    plt.xticks(rotation=45, ha="right")
     plt.suptitle("")
     plt.tight_layout()
     plt.show()
