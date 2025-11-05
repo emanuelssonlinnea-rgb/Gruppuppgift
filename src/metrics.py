@@ -22,6 +22,18 @@ def revenue_per_category(reader):
     
     return sorted(list_of_category_and_revenue, key=lambda item: item[1], reverse=True)
     
+
+# filen till nyckeltals-funktioner:
+
+# Total intäkt 
+# Totalt antal enheter
+# AOV (Average Order Value)
+# Intäkt per kategori
+# Intäkt per stad
+# Top-3 kategorier efter intäkt
+
+
+
 #-----------BERÄKNINGAR AOV--------------
 
 # Laddar och förbereder datan
@@ -55,26 +67,38 @@ def calculate_aov_per_category(df: pd.DataFrame) -> pd.DataFrame:
     category_aov["AOV"] = category_aov["AOV"].round(0).astype(int)
     return category_aov
 
+# Beräkning av AOV per stad
+def calculate_aov_per_city(df: pd.DataFrame) -> pd.DataFrame:
+    city_aov = (df.groupby("city")
+                    .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
+                    .reset_index(name="AOV")
+                    )
+    city_aov["AOV"] = city_aov["AOV"].round(0).astype(int)
+    return city_aov
+
+# Beräknar genomsnittligt antal produkter sålda per order 
+def calculate_average_units_per_order(df: pd.DataFrame) -> pd.DataFrame:
+    ave_units_per_order = df["units"].sum() / df["order_id"].count()
+    return ave_units_per_order.round(2).astype(float)
+
 # Huvudfunktion som kör allt
-def calculate_aov(df: pd.DataFrame) -> tuple[pd.DataFrame, float, pd.DataFrame, pd.DataFrame]:
+def calculate_aov(df: pd.DataFrame) -> tuple[pd.DataFrame, float, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     df = load_and_prepare_data(df)
     monthly_aov = calculate_aov_per_month(df)
     total_aov = calculate_total_aov(df)
     category_aov = calculate_aov_per_category(df)
-    
-    return monthly_aov, total_aov, category_aov
-
-#------------Uträkningar för medel & spridning av sålda enheter per kategori-----------------------------
-def calculate_average_units_per_order(df: pd.DataFrame) -> float:
-    ave_units_per_order = df["units"].sum() / df["order_id"].count()
-    return round(float(ave_units_per_order), 2)
-
-def calculate_distribution_units_sold(df: pd.DataFrame) -> tuple[float, pd.DataFrame]:
-    df = load_and_prepare_data(df)
+    city_aov = calculate_aov_per_city(df)
     ave_units_per_order = calculate_average_units_per_order(df)
-    return ave_units_per_order, df
+    
+    return monthly_aov, total_aov, category_aov, city_aov, ave_units_per_order
 
-#------------- Revenue per city---------------------------------------
+#------------BERÄKNING AV ANTAL ENHETER PER
+
+
+
+#--------------------------------------
+
+# Revenue per city
 def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
     """
     Where do we sell?
