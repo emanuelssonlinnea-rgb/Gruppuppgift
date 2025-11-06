@@ -144,5 +144,19 @@ def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
     plt.xticks(rotation=45)
     return ax
 
+# ---------- PLOTTING TOTAL UNITS PER CATEGORY ----------
+
+def plot_units_per_category(df: pd.DataFrame):
+    units_by_category = units_per_category(df)
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.bar(units_by_category["category"], units_by_category["units_sold"], color="skyblue")
+    ax.set_title("Sålda enheter per kategori")
+    ax.set_xlabel("Kategori")
+    ax.set_ylabel("Antal enheter")
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.show()
+
+
 
 

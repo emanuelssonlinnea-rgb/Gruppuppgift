@@ -147,6 +147,20 @@ def total_sum_and_total_units_sold(df: pd.DataFrame):
     return pd.Series(df_new)
 
 
+# ---------- BERÄKNINGAR SÅLDA ENHETER PER KATEGORI ----------
+
+def total_units(df: pd.DataFrame) -> int:
+    return int(df["units"].sum())
+
+def units_per_category(df: pd.DataFrame) -> pd.DataFrame:
+    units_by_category = (
+        df.groupby("category")["units"]
+        .sum()
+        .reset_index(name="units_sold")
+        .sort_values("units_sold", ascending=False)
+    )
+    return units_by_category
+
 
 
 
