@@ -135,3 +135,16 @@ def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
     ax.grid(grid, axis="y", alpha=0.5)
     plt.xticks(rotation=45)
     return ax
+
+# ----------TOTALT SÅLDA ENHETER PER KATEGORI (ABDULLAHI)----------
+
+def plot_units_per_category(df: pd.DataFrame) -> None:
+    units_by_category = df.groupby("category")["units"].sum().sort_values(ascending=False)
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.bar(units_by_category.index, units_by_category.values, color="skyblue")
+    ax.set_title("Sålda enheter per kategori")
+    ax.set_xlabel("Kategori")
+    ax.set_ylabel("Antal sålda enheter")
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.show()
