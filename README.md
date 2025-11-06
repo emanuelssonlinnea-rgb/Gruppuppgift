@@ -23,6 +23,7 @@ I report.ipynb svarar vi på frågor:
 Skapat brancher
 Börjat koda
 Irene: förberedde data, beräknade intäkter per stad och tog fram topp 3-städer baserat på intäkter. Skapade ett stapeldiagram som visualiserar intäkterna per stad.
+Linnéa: Beräknade totala intäkter och intäkter över tid. Skapade ett stapeldiagram och boxplot som visualiserar intäkterna över tid. Skriver eventuella avvikelser + rekommendationer. 
 
 
 ## Hur man kör projektet
