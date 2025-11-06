@@ -5,19 +5,17 @@ from src.metrics import *
 
 #------------PLOTTING ORDER VALUE IN ONE FIGURE------------------
 
-def plot_ov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd.DataFrame, city_aov: pd.DataFrame, ave_units_per_order: float, df: pd.DataFrame):
-    fig, axes = plt.subplots(2, 2, figsize=(16, 16), sharex=False, sharey=False)
+def plot_aov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd.DataFrame):
+    fig, axes = plt.subplots(1, 2, figsize=(10, 5), sharex=False, sharey=False)
 
-    # Delgraf 1: AOV over time
-    ax1 = axes[0, 0]
+    # Delgraf 1: Montly AOV
+    ax1 = axes[0]
     ax1.bar(monthly_aov["month"], monthly_aov["AOV"], color="orange")
     ax1.axhline(y=total_aov, color="grey", linestyle="--", linewidth=1, label="AOV all orders")
     
-    # lägger till etiketter (AOV värdena) på stolparna 
     for i, v in enumerate(monthly_aov["AOV"]):
         ax1.text(i, v - 100, f"{v}", ha="center", va="top", color= "white")
 
-    # anpassar utseendet
     ax1.set_title("Average Order Value (AOV) per month")
     ax1.set_xlabel("Month")
     ax1.set_ylabel("AOV (kr)")
@@ -27,7 +25,7 @@ def plot_ov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd
     ax1.tick_params(axis='x', rotation=45)
 
     # Delgraf 2: AOV per kategori
-    ax2 = axes[0, 1]
+    ax2 = axes[1]
     ax2.bar(category_aov["category"], category_aov["AOV"], color="seagreen")
     ax2.axhline(y=total_aov, color="grey", linestyle="--", linewidth=1, label="AOV all orders")
 
@@ -42,55 +40,33 @@ def plot_ov_figure(monthly_aov: pd.DataFrame, total_aov: float, category_aov: pd
     ax2.legend()
     ax2.tick_params(axis='x', rotation=45)
 
-    # Delgraf 3: Units sold per category
-    ax3 = axes[1, 0]
-    # Grupperar units per kategori
-    groups = df.groupby("category")["units"]
-    # Skapar en litsa med units-värden för varje kategori
-    units_data = [group.values for name, group in groups]
-    # Skapar en lista med kategorinamnen (etiketter)
-    labels = [name for name, group in groups]
-    # Ritar boxploten
-    ax3.boxplot(units_data, labels=labels, vert=True, patch_artist=True)
-    # Lägger till referenslinje och 
-    ax3.axhline(y=ave_units_per_order, color="grey", linestyle="--", linewidth=1, label="Average units per order")
-
-    ax3.set_title("Distribution of sold units per catgeory")
-    ax3.set_xlabel("Category")
-    ax3.set_ylabel("Number of units")
-    ax3.set_ylim(0, 10)
-    ax3.grid(True, axis="y")
-    ax3.legend()
-    ax3.tick_params(axis='x', rotation=45)
-
-     # Delgraf 4: Ordervalue per category
-    ax4 = axes[1, 1]
-    # Grupperar revenue per kategori
-    groups = df.groupby("category")["revenue"]
-    # Skapar en litsa med revenue-värden för varje categori
-    rev_data = [group.values for name, group in groups]
-    # Skapar en lista med kategorinamnen (etiketter)
-    labels = [name for name, group in groups]
-    # Ritar boxploten
-    ax4.boxplot(rev_data, labels=labels, vert=True, patch_artist=True)
-    # Lägger till referenslinje och 
-    ax4.axhline(y=total_aov, color="grey", linestyle="--", linewidth=1, label="AOV all orders")
-
-    ax4.set_title("Distribution of Order Value per catgeory")
-    ax4.set_xlabel("Category")
-    ax4.set_ylabel("Revenue in kr")
-    ax4.set_ylim(0, 10000)
-    ax4.grid(True, axis="y")
-    ax4.legend()
-    ax4.tick_params(axis='x', rotation=45)
-
-    # Gemensam titel
-    fig.suptitle("Order Value – Overview", fontsize=16, fontweight="bold")
+    fig.suptitle("Average Order Value – Overview", fontsize=16, fontweight="bold")
 
     plt.tight_layout()
     plt.show()
 
+#------------BOX PLOT UNITS SOLD PER CATEGORY------------------
 
+def box_plot_units_per_category (ave_units_per_order: float, df: pd.DataFrame):
+  
+    groups = df.groupby("category")["units"]
+    units_data = [group.values for name, group in groups]
+    labels = [name for name, group in groups]
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.boxplot(units_data, labels=labels, vert=True, patch_artist=True)
+    ax.axhline(y=ave_units_per_order, color="grey", linestyle="--", linewidth=1, label="Average units per order")
+
+    ax.set_title("Distribution of sold units per catgeory")
+    ax.set_xlabel("Category")
+    ax.set_ylabel("Number of units")
+    ax.set_ylim(0, 10)
+    ax.grid(True, axis="y")
+    ax.legend()
+    ax.tick_params(axis='x', rotation=45)
+
+    plt.tight_layout()
+    plt.show()
 
 # --- Total Intäkt över tid (månad) ---
 
@@ -101,7 +77,11 @@ def revenue_monthly_bar(df: pd.DataFrame) -> None:
     monthly = monthly.sort_values("month")
 
     fig, ax = plt.subplots(figsize=(9,4))
+<<<<<<< HEAD
     ax.bar(monthly["month"], monthly["revenue"], color="blue")
+=======
+    ax.hist(monthly_revenue["revenue"] , bins=30, color="skyblue", edgecolor="black")
+>>>>>>> 443fdb6d11b909039c21caacf238d0a87aa39b9f
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
