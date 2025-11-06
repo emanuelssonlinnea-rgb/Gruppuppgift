@@ -70,10 +70,9 @@ def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
 
 #-----------BERÄKNINGAR TOTAL INTÄKT & INTÄKT ÖVER TID (MÅNAD)--------------
 
-# Total Intäkt
-def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
-    
-    return int(df["revenue"].sum())
+# Total intäkt
+def calculate_total_revenue(df: pd.DataFrame) -> float:
+    return round(df["revenue"].sum(), 2)
 
 # Intäkt över tid (månad)
 def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:

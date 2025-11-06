@@ -72,7 +72,7 @@ def box_plot_units_per_category (ave_units_per_order: float, df: pd.DataFrame):
 
 def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
     fig, ax = plt.subplots(figsize=(9,4))
-    ax.hist(monthly_revenue["revenue"] , bins=30, color="skyblue", edgecolor="black")
+    ax.bar(monthly["month"], monthly["revenue"], color="blue")
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
@@ -80,10 +80,11 @@ def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.show()
-  
+
 def revenue_monthly_boxplot(df: pd.DataFrame) -> pd.DataFrame:
+    
     fig, ax = plt.subplots(figsize=(8,5))
-    df.boxplot(column="revenue", by="month", ax=ax)
+    df.boxplot(column= "revenue", by="month", ax=ax)
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
