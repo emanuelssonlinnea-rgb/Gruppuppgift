@@ -68,14 +68,9 @@ def box_plot_units_per_category (ave_units_per_order: float, df: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
-# --- Total Intäkt över tid (månad) ---
+# ---------TOTALA INTÄKTER & INTÄKT ÖVER TID (MÅNAD)----------------------
 
-    
-
-def revenue_monthly_bar(df: pd.DataFrame) -> None:
-    monthly = df.groupby("month", sort=False)["revenue"].sum().reset_index()
-    monthly = monthly.sort_values("month")
-
+def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
     fig, ax = plt.subplots(figsize=(9,4))
     ax.bar(monthly["month"], monthly["revenue"], color="blue")
     ax.set_title("Revenue per month")
@@ -86,7 +81,6 @@ def revenue_monthly_bar(df: pd.DataFrame) -> None:
     plt.tight_layout()
     plt.show()
 
-  
 def revenue_monthly_boxplot(df: pd.DataFrame) -> pd.DataFrame:
     
     fig, ax = plt.subplots(figsize=(8,5))
@@ -99,7 +93,7 @@ def revenue_monthly_boxplot(df: pd.DataFrame) -> pd.DataFrame:
     plt.tight_layout()
     plt.show()
 
-# -- Intäkt per kategori --
+# -----------INTÄKT PER KATEGORI-----------------
 # Plottar intäkt per kategori samt top 3 kategorier och plot med outliers
 
 def plot_revenue_per_category(df1: pd.DataFrame):
@@ -112,7 +106,6 @@ def plot_revenue_per_category(df1: pd.DataFrame):
     axes[0].set_ylabel("Revenue in thousands")
     axes[0].tick_params(axis="x", rotation=0)
     
-
     df_top_3_revenue_per_category.plot(kind="bar", ax=axes[1], legend=False)
     axes[1].set_title("Top 3 revenue per month")
     axes[1].tick_params(axis="x", rotation=0)
@@ -120,7 +113,6 @@ def plot_revenue_per_category(df1: pd.DataFrame):
 
     plt.tight_layout()
     plt.show()
-
 
 def boxplot_revenue_per_category(df: pd.DataFrame):
     fig, ax = plt.subplots(figsize=(8,5))
@@ -133,7 +125,7 @@ def boxplot_revenue_per_category(df: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
-
+# --------REVENUE PER CITY-----------------
 # Funktion till bar plot
 def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
     ax.bar(x, y, color=color)
@@ -143,20 +135,3 @@ def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
     ax.grid(grid, axis="y", alpha=0.5)
     plt.xticks(rotation=45)
     return ax
-
-# ---------- PLOTTING TOTAL UNITS PER CATEGORY ----------
-
-def plot_units_per_category(df: pd.DataFrame):
-    units_by_category = units_per_category(df)
-    fig, ax = plt.subplots(figsize=(8, 4))
-    ax.bar(units_by_category["category"], units_by_category["units_sold"], color="skyblue")
-    ax.set_title("Sålda enheter per kategori")
-    ax.set_xlabel("Kategori")
-    ax.set_ylabel("Antal enheter")
-    plt.xticks(rotation=45, ha="right")
-    plt.tight_layout()
-    plt.show()
-
-
-
-
