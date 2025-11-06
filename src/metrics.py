@@ -1,7 +1,4 @@
-# # Intäkter per kategori
 
-# # Kräver att man först öppnar en csv och därefter kör "variabel" = csvreader, och matar sedan in variabeln i revenue_per_category(reader)
-# import csv
 import pandas as pd
 
 #-----------BERÄKNINGAR AOV--------------
@@ -23,7 +20,6 @@ def calculate_aov_per_month(df: pd.DataFrame) -> pd.DataFrame:
                    .apply(lambda x: x["revenue"].sum() / x["order_id"].nunique())
                    .reset_index(name="AOV")
                       )
-    # Rundar & sorterar
     monthly_aov["AOV"] = monthly_aov["AOV"].round(0).astype(int)
     monthly_aov = monthly_aov.sort_values("month")
     return monthly_aov
@@ -46,7 +42,8 @@ def calculate_aov(df: pd.DataFrame) -> tuple[pd.DataFrame, float, pd.DataFrame, 
     
     return monthly_aov, total_aov, category_aov
 
-#------------Uträkningar för medel & spridning av sålda enheter per kategori-----------------------------
+#------------Beräkningar medel & spridning av sålda enheter per kategori----------------
+
 def calculate_average_units_per_order(df: pd.DataFrame) -> float:
     ave_units_per_order = df["units"].sum() / df["order_id"].count()
     return round(float(ave_units_per_order), 2)
@@ -56,7 +53,7 @@ def calculate_distribution_units_sold(df: pd.DataFrame) -> tuple[float, pd.DataF
     ave_units_per_order = calculate_average_units_per_order(df)
     return ave_units_per_order, df
 
-# Revenue per city
+#-------------Beräkningar - Revenue per city----------------------------
 def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
     """
     Where do we sell?
@@ -71,18 +68,14 @@ def revenue_per_city(df: pd.DataFrame) -> pd.DataFrame:
 def top3_cities(df: pd.DataFrame) -> pd.DataFrame:
     return revenue_per_city(df).head(3)
 
-
 #-----------BERÄKNINGAR TOTAL INTÄKT & INTÄKT ÖVER TID (MÅNAD)--------------
-import pandas as pd
-# Total Intäkt
 
+# Total Intäkt
 def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
     
     return int(df["revenue"].sum())
 
-
 # Intäkt över tid (månad)
-
 def revenue_over_time(df: pd.DataFrame, freq: str = "M") -> pd.DataFrame:
     """
     When do we get the highest vs smallest revenue?
@@ -105,7 +98,6 @@ def revenue_over_time_monthly(df: pd.DataFrame) -> pd.DataFrame:
     monthly_revenue = revenue_over_time(df, freq="M")
     monthly_revenue = monthly_revenue.sort_values("month").reset_index(drop=True)
     return monthly_revenue
-
 
 #-----------BERÄKNINGAR INTÄKT PER KATEGORI--------------
 
@@ -137,7 +129,6 @@ def looking_for_them_outliers_in_category_revenue(df: pd.DataFrame):
         number_of_them_outliers[category] = len(outliers)
 
         revenue_without_outliers[category] = ((category_rows.sum()) - (outliers.sum()))
-
 
     return ((pd.Series(number_of_them_outliers).sort_values(ascending=False)), (pd.Series(outliers_revenue).sort_values(ascending=False))), (pd.Series(revenue_without_outliers).sort_values(ascending=False))
 

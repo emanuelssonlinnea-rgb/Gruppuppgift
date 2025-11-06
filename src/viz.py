@@ -68,7 +68,7 @@ def box_plot_units_per_category (ave_units_per_order: float, df: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
-# --- Total Intäkt & Intäkt över tid (månad) ---
+# ---------TOTALA INTÄKTER & INTÄKT ÖVER TID (MÅNAD)----------------------
 
 def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
     fig, ax = plt.subplots(figsize=(9,4))
@@ -80,20 +80,6 @@ def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.show()
-
-
-# def revenue_monthly_hist(df: pd.DataFrame) -> pd.DataFrame:
-#     fig, ax = plt.subplots(figsize=(9,4))
-#     ax.hist(df["month"] , bins=12, color="skyblue", edgecolor="black")
-#     ax.set_title("Revenue per month")
-#     ax.set_xlabel("Month")
-#     ax.set_ylabel("Revenue")
-#     ax.grid(True, axis = "y")
-#     plt.xticks(rotation=45, ha="right")
-#     plt.tight_layout()
-#     plt.show()
-
-
   
 def revenue_monthly_boxplot(df: pd.DataFrame) -> pd.DataFrame:
     fig, ax = plt.subplots(figsize=(8,5))
@@ -106,7 +92,7 @@ def revenue_monthly_boxplot(df: pd.DataFrame) -> pd.DataFrame:
     plt.tight_layout()
     plt.show()
 
-# -- Intäkt per kategori --
+# -----------INTÄKT PER KATEGORI-----------------
 # Plottar intäkt per kategori samt top 3 kategorier och plot med outliers
 
 def plot_revenue_per_category(df1: pd.DataFrame):
@@ -119,7 +105,6 @@ def plot_revenue_per_category(df1: pd.DataFrame):
     axes[0].set_ylabel("Revenue in thousands")
     axes[0].tick_params(axis="x", rotation=0)
     
-
     df_top_3_revenue_per_category.plot(kind="bar", ax=axes[1], legend=False)
     axes[1].set_title("Top 3 revenue per month")
     axes[1].tick_params(axis="x", rotation=0)
@@ -127,7 +112,6 @@ def plot_revenue_per_category(df1: pd.DataFrame):
 
     plt.tight_layout()
     plt.show()
-
 
 def boxplot_revenue_per_category(df: pd.DataFrame):
     fig, ax = plt.subplots(figsize=(8,5))
@@ -140,7 +124,7 @@ def boxplot_revenue_per_category(df: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
-
+# --------REVENUE PER CITY-----------------
 # Funktion till bar plot
 def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
     ax.bar(x, y, color=color)
@@ -150,6 +134,3 @@ def bar(ax, x, y, title, xlabel, ylabel, color, grid: bool = True):
     ax.grid(grid, axis="y", alpha=0.5)
     plt.xticks(rotation=45)
     return ax
-
-
-
