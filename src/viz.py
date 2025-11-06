@@ -77,11 +77,7 @@ def revenue_monthly_bar(df: pd.DataFrame) -> None:
     monthly = monthly.sort_values("month")
 
     fig, ax = plt.subplots(figsize=(9,4))
-<<<<<<< HEAD
     ax.bar(monthly["month"], monthly["revenue"], color="blue")
-=======
-    ax.hist(monthly_revenue["revenue"] , bins=30, color="skyblue", edgecolor="black")
->>>>>>> 443fdb6d11b909039c21caacf238d0a87aa39b9f
     ax.set_title("Revenue per month")
     ax.set_xlabel("Month")
     ax.set_ylabel("Revenue")
