@@ -71,6 +71,9 @@ def box_plot_units_per_category (ave_units_per_order: float, df: pd.DataFrame):
 # ---------TOTALA INTÄKTER & INTÄKT ÖVER TID (MÅNAD)----------------------
 
 def revenue_monthly_bar(monthly_revenue: pd.DataFrame) -> None:
+    monthly = df.groupby("month", sort= False)["revenue"].sum(). reset_index()
+    monthly = monthly.sort_values("month")
+
     fig, ax = plt.subplots(figsize=(9,4))
     ax.bar(monthly["month"], monthly["revenue"], color="blue")
     ax.set_title("Revenue per month")
